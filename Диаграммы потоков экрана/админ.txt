@@ -1,0 +1,45 @@
+@startuml
+
+state "Окно входа в программу" as loginWindow
+state "Домашнее окно" as homeWindow
+state "Окно добавления пользователей" as addUser
+state "Окно удаления пользователей" as deleteUser
+state "Окно истории покупок" as historyWindow
+state "Окно истории изменения цен" as priceHistoryWindow
+
+addUser: Пользователь может:
+addUser: -Заполнить необходимые данные
+addUser: -Зарегистрировать пользователя
+
+deleteUser: Пользователь может:
+deleteUser: -Выбрать нужных пользователей
+deleteUser: и удалить их
+
+historyWindow: Пользователь может:
+historyWindow: -Просматривать историю всех покупок
+
+priceHistoryWindow: Пользователь может:
+priceHistoryWindow: -Просматривать историю изменения цен
+priceHistoryWindow: всех товаров
+
+loginWindow : Пользователь может:
+loginWindow : -Ввести ФИО
+loginWindow : -Войти
+
+homeWindow : Пользователь может:
+homeWindow : -Открыть окно списка деталей
+homeWindow : -Открыть корзину
+homeWindow : -Оформить покупку
+homeWindow : -Выйти из сессии
+homeWindow : -Закрыть программу
+
+[*] --> loginWindow
+loginWindow -down-> homeWindow : Нажата кнопка вход
+homeWindow -down-> addUser: Нажата кнопка \n добавить пользователя
+homeWindow -left-> deleteUser: Нажата кнопка \n удалить пользователя
+homeWindow -down-> historyWindow: Нажата кнопка \n история покупок
+homeWindow -up-> priceHistoryWindow: Нажата кнопка \n история изменения цен
+homeWindow -up-> loginWindow : Нажата кнопка выход
+homeWindow -right->[*] : Окно закрыто
+
+@enduml

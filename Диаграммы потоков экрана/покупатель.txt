@@ -1,0 +1,50 @@
+@startuml
+
+state "Окно входа в программу" as loginWindow
+state "Домашнее окно" as homeWindow
+state "Окно списка деталей" as partsWindow
+state "Окно оформления покупки" as purchaseWindow
+state "Окно корзины" as cartWindow
+state "Окно информации о поставщиках" as suppliersWindow
+
+suppliersWindow: Пользователь может:
+suppliersWindow: -Просматривать название
+suppliersWindow: -Просматривать адрес
+suppliersWindow: -Просматривать телефон
+
+cartWindow : Пользователь может:
+cartWindow : -Просматривать добавленные в корзину товары
+cartWindow : -Удалять товары из корзины
+cartWindow : -Оформить покупку
+
+purchaseWindow: Пользователь может:
+purchaseWindow: -Оформить покупку
+
+loginWindow : Пользователь может:
+loginWindow : -Ввести ФИО
+loginWindow : -Войти
+
+homeWindow : Пользователь может:
+homeWindow : -Открыть окно списка деталей
+homeWindow : -Открыть корзину
+homeWindow : -Оформить покупку
+homeWindow : -Выйти из сессии
+homeWindow : -Закрыть программу
+
+partsWindow: Пользователь может:
+partsWindow: -Просматривать название детали
+partsWindow: -Просматривать артикул детали
+partsWindow: -Просматривать цену детали
+partsWindow: -Просматривать информацию о поставщиках
+partsWindow: -Добавлять детали в корзину
+
+[*] --> loginWindow
+loginWindow -down-> homeWindow : Нажата кнопка вход
+homeWindow -down-> cartWindow: Нажата кнопка корзина
+homeWindow -left-> partsWindow: Нажата кнопка\n просмотреть cписок деталей
+partsWindow -left-> suppliersWindow: Нажата кнопка \n просмотреть информацию о поставщиках
+cartWindow -down-> purchaseWindow: Нажата кнопка\n оформить покупку
+homeWindow -up-> loginWindow : Нажата кнопка выход
+homeWindow -right->[*] : Окно закрыто
+
+@enduml

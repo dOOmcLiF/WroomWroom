@@ -1,0 +1,41 @@
+@startuml
+
+state "Окно входа в программу" as loginWindow
+state "Домашнее окно" as homeWindow
+state "Окно добавления товара" as addProduct
+state "Окно изменения товара" as changeProduct
+state "Окно удаления товара" as deleteProduct
+
+addProduct: Пользователь может:
+addProduct: -Установить название детали
+addProduct: -Установить артикул детали
+addProduct: -Установить цену детали
+
+changeProduct: Пользователь может:
+changeProduct: -Изменить название детали
+changeProduct: -Изменить артикул детали
+changeProduct: -Изменить цену детали
+
+deleteProduct: Пользователь может:
+deleteProduct: -Удалить детали
+
+loginWindow : Пользователь может:
+loginWindow : -Ввести ФИО
+loginWindow : -Войти
+
+homeWindow : Пользователь может:
+homeWindow : -Открыть окно добавления товара
+homeWindow : -Открыть окно изменения товара
+homeWindow : -Открыть окно удаления товара
+homeWindow : -Выйти из сессии
+homeWindow : -Закрыть программу
+
+[*] --> loginWindow
+loginWindow -down-> homeWindow : Нажата кнопка вход
+homeWindow -up-> addProduct: Нажата кнопка \n добавить товар
+homeWindow -down-> changeProduct: Нажата кнопка \n изменить товар
+homeWindow -left-> deleteProduct: Нажата кнопка \n удалить товар
+homeWindow -up-> loginWindow : Нажата кнопка выход
+homeWindow -right->[*] : Окно закрыто
+
+@enduml
