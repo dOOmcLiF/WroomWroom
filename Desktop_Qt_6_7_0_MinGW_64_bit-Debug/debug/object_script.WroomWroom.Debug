@@ -1,0 +1,16 @@
+debug/adminhomewindow.o
+debug/buyerhomewindow.o
+debug/database.o
+debug/entrywindow.o
+debug/homewindow.o
+debug/main.o
+debug/regwindow.o
+debug/supplierhomewindow.o
+debug/qrc_backlogo.o
+debug/moc_adminhomewindow.o
+debug/moc_buyerhomewindow.o
+debug/moc_database.o
+debug/moc_entrywindow.o
+debug/moc_homewindow.o
+debug/moc_regwindow.o
+debug/moc_supplierhomewindow.o

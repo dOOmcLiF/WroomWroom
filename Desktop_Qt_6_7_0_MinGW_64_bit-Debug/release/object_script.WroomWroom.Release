@@ -1,0 +1,16 @@
+release/adminhomewindow.o
+release/buyerhomewindow.o
+release/database.o
+release/entrywindow.o
+release/homewindow.o
+release/main.o
+release/regwindow.o
+release/supplierhomewindow.o
+release/qrc_backlogo.o
+release/moc_adminhomewindow.o
+release/moc_buyerhomewindow.o
+release/moc_database.o
+release/moc_entrywindow.o
+release/moc_homewindow.o
+release/moc_regwindow.o
+release/moc_supplierhomewindow.o
