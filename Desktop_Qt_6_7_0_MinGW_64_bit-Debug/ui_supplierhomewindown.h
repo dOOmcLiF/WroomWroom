@@ -197,7 +197,7 @@ public:
 
         retranslateUi(SupplierHomeWindowN);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(SupplierHomeWindowN);

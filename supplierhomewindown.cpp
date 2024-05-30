@@ -175,11 +175,6 @@ void SupplierHomeWindowN::on_changeButton_clicked()
         return;
     }
 
-    // if (newName.trimmed().isEmpty() || newName.trimmed().isEmpty() || newName.trimmed().isEmpty() || newName.trimmed().isEmpty()){
-    //     QMessageBox::warning(this, "Ошибка", "Поля не могут быть пустыми!");
-    //     return;
-    // }
-
     bool updateSuccess = false;
     try {
         if (db.isVendorCodeExists(newVendorCode)) {
@@ -212,6 +207,7 @@ void SupplierHomeWindowN::on_changeButton_clicked()
         ui->newPrice->clear();
         ui->oldQuantity->clear();
         ui->newQuantity->clear();
+        on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
     } else {
         QMessageBox::warning(this, "Ошибка", "Не удалось обновить данные о товаре!");
     }
@@ -247,7 +243,7 @@ void SupplierHomeWindowN::on_deleteButton_clicked()
 
         if (deleteSuccess) {
             QMessageBox::information(this, "Уведомление", "Товар успешно удален!");
-            //on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
+            on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
         } else {
             QMessageBox::warning(this, "Ошибка", "Не удалось удалить товар!");
         }

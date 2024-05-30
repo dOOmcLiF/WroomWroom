@@ -44,10 +44,26 @@ void AdminHomeWindowN::on_regUser_clicked()
     const auto password = ui->password->text();
     const auto role = ui->comboBox->currentText();
     bool RegSuccess = false;
+    bool SameLogins = false;
 
     if (surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty())
     {
         QMessageBox::warning(this,"Ошибка","Поля не могут быть пустыми!");
+        return;
+    }
+
+    try
+    {
+        SameLogins = db.checkSameLogins(login);
+    }
+    catch(DbCritical &e)
+    {
+        QMessageBox::critical(this,QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+    if (SameLogins)
+    {
+        QMessageBox::warning(this,QString("Ошибка"), QString("Введённый логин уже используется!"));
         return;
     }
 
@@ -64,6 +80,14 @@ void AdminHomeWindowN::on_regUser_clicked()
     if (RegSuccess == true)
     {
         QMessageBox::information(this,"Уведомление","Учетная запись успешно создана!");
+        ui->surname->clear();
+        ui->name->clear();
+        ui->patronymic->clear();
+        ui->address->clear();
+        ui->telephoneNumber->clear();
+        ui->login->clear();
+        ui->password->clear();
+        on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
         return;
     }
 
@@ -126,8 +150,8 @@ void AdminHomeWindowN::on_deleteButton_clicked()
     QString patronymic = model->data(model->index(row, 2)).toString();
     QString address = model->data(model->index(row, 3)).toString();
     QString phone = model->data(model->index(row, 4)).toString();
-    QString password = model->data(model->index(row, 5)).toString();
-    QString login = model->data(model->index(row, 6)).toString();
+    QString login = model->data(model->index(row, 5)).toString();
+    QString password = model->data(model->index(row, 6)).toString();
     QString role = model->data(model->index(row, 7)).toString();
 
     QMessageBox::StandardButton answer = QMessageBox::question(this, "Подтверждение", "Вы действительно хотите удалить пользователя:\n"
@@ -137,6 +161,7 @@ void AdminHomeWindowN::on_deleteButton_clicked()
 
     if (answer == QMessageBox::Yes) {
         model->removeRow(row);
+        qDebug() << login;
         try
         {
             db.deleteUserFromFile(surname, name, patronymic, address, phone, login, password, role);
