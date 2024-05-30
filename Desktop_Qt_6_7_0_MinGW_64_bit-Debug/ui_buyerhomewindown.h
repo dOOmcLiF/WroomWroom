@@ -156,9 +156,12 @@ public:
         tabWidget->addTab(tab_10, QString());
         nameLabel = new QLabel(centralwidget);
         nameLabel->setObjectName("nameLabel");
-        nameLabel->setGeometry(QRect(630, 20, 111, 51));
+        nameLabel->setGeometry(QRect(500, 400, 111, 51));
         nameLabel->setFont(font1);
         BuyerHomeWindowN->setCentralWidget(centralwidget);
+        nameLabel->raise();
+        exitButton->raise();
+        tabWidget->raise();
         menubar = new QMenuBar(BuyerHomeWindowN);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 800, 21));

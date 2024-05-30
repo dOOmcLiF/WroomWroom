@@ -175,12 +175,12 @@ void AdminHomeWindowN::loadPurchaseHistory()
             QString vendorCode = purchaseDetails[0];
             QString quantity = purchaseDetails[1];
             QString date = purchaseDetails[2];
-            QString customerName = purchaseDetails[3];
+            QString customerLogin = purchaseDetails[3];
 
             QString fullCustomerName;
             for (const QString& userLine : userData) {
                 QStringList userDetails = userLine.split(",");
-                if (userDetails.size() >= 8 && userDetails[7] == "Buyer" && userDetails[0] == customerName) {
+                if (userDetails.size() >= 8 && userDetails[7] == "Buyer" && userDetails[5] == customerLogin) {
                     fullCustomerName = userDetails[0] + " " + userDetails[1] + " " + userDetails[2];
                     break;
                 }

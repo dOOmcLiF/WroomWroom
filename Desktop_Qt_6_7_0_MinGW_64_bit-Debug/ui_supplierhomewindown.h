@@ -66,7 +66,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         vendorLabel = new QLabel(centralwidget);
         vendorLabel->setObjectName("vendorLabel");
-        vendorLabel->setGeometry(QRect(680, 10, 111, 41));
+        vendorLabel->setGeometry(QRect(460, 200, 111, 41));
         QFont font;
         font.setPointSize(18);
         vendorLabel->setFont(font);

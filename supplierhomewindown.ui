@@ -17,8 +17,8 @@
    <widget class="QLabel" name="vendorLabel">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>10</y>
+      <x>460</x>
+      <y>200</y>
       <width>111</width>
       <height>41</height>
      </rect>
