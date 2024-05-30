@@ -30,10 +30,10 @@ void SupplierHomeWindowN::on_exitButton_clicked()
 
 void SupplierHomeWindowN::on_addButton_clicked()
 {
-    const auto name = ui->lineEdit->text();
-    const auto vendorCode = ui->lineEdit_2->text();
-    const auto count = ui->lineEdit_13->text();
-    const auto price = ui->lineEdit_3->text();
+    const auto name = ui->name->text();
+    const auto vendorCode = ui->vendorCode->text();
+    const auto count = ui->quantity->text();
+    const auto price = ui->price->text();
     const auto vendorLabel = ui->vendorLabel->text();
     bool AddSupplyingSuccess = false;
 
@@ -65,10 +65,10 @@ void SupplierHomeWindowN::on_addButton_clicked()
         QMessageBox::warning(this, "Ошибка", "Неудачное добавление товара!");
     } else {
         QMessageBox::information(this, "Уведомление", "Товар успешно добавлен!");
-        ui->lineEdit->clear();
-        ui->lineEdit_13->clear();
-        ui->lineEdit_2->clear();
-        ui->lineEdit_3->clear();
+        ui->name->clear();
+        ui->quantity->clear();
+        ui->vendorCode->clear();
+        ui->price->clear();
     }
 }
 
@@ -81,14 +81,14 @@ void SupplierHomeWindowN::on_tabWidget_currentChanged(int index)
 {
     ui->comboBox->clear();
     ui->comboBox_2->clear();
-    ui->lineEdit_4->clear();
-    ui->lineEdit_5->clear();
-    ui->lineEdit_6->clear();
-    ui->lineEdit_7->clear();
-    ui->lineEdit_8->clear();
-    ui->lineEdit_9->clear();
-    ui->lineEdit_14->clear();
-    ui->lineEdit_16->clear();
+    ui->oldName->clear();
+    ui->oldVendorCode->clear();
+    ui->oldPrice->clear();
+    ui->name_2->clear();
+    ui->vendorCode_2->clear();
+    ui->price_2->clear();
+    ui->oldQuantity->clear();
+    ui->quantity_2->clear();
 
     QString vendor = ui->vendorLabel->text();
     QStringList supplies;
@@ -135,26 +135,26 @@ void SupplierHomeWindowN::on_comboBox_currentIndexChanged(int index)
         QCoreApplication::quit();
     }
 
-    ui->lineEdit_4->clear();
-    ui->lineEdit_5->clear();
-    ui->lineEdit_6->clear();
-    ui->lineEdit_7->clear();
-    ui->lineEdit_8->clear();
-    ui->lineEdit_9->clear();
-    ui->lineEdit_14->clear();
-    ui->lineEdit_16->clear();
+    ui->oldName->clear();
+    ui->oldVendorCode->clear();
+    ui->oldPrice->clear();
+    ui->name_2->clear();
+    ui->vendorCode_2->clear();
+    ui->price_2->clear();
+    ui->oldQuantity->clear();
+    ui->quantity_2->clear();
 
     if (!supplyData.isEmpty()) {
         if (senderComboBox == ui->comboBox) {
-            if (supplyData.size() >= 1) ui->lineEdit_4->setText(supplyData[0]);
-            if (supplyData.size() >= 2) ui->lineEdit_14->setText(supplyData[1]);
-            if (supplyData.size() >= 3) ui->lineEdit_5->setText(supplyData[2]);
-            if (supplyData.size() >= 4) ui->lineEdit_6->setText(supplyData[3]);
+            if (supplyData.size() >= 1) ui->oldName->setText(supplyData[0]);
+            if (supplyData.size() >= 2) ui->oldQuantity->setText(supplyData[1]);
+            if (supplyData.size() >= 3) ui->oldVendorCode->setText(supplyData[2]);
+            if (supplyData.size() >= 4) ui->oldPrice->setText(supplyData[3]);
         } else if (senderComboBox == ui->comboBox_2) {
-            if (supplyData.size() >= 1) ui->lineEdit_7->setText(supplyData[0]);
-            if (supplyData.size() >= 2) ui->lineEdit_16->setText(supplyData[1]);
-            if (supplyData.size() >= 3) ui->lineEdit_8->setText(supplyData[2]);
-            if (supplyData.size() >= 4) ui->lineEdit_9->setText(supplyData[3]);
+            if (supplyData.size() >= 1) ui->name_2->setText(supplyData[0]);
+            if (supplyData.size() >= 2) ui->quantity_2->setText(supplyData[1]);
+            if (supplyData.size() >= 3) ui->vendorCode_2->setText(supplyData[2]);
+            if (supplyData.size() >= 4) ui->price_2->setText(supplyData[3]);
         }
     }
 }
@@ -164,16 +164,21 @@ void SupplierHomeWindowN::on_changeButton_clicked()
     QString vendor = ui->vendorLabel->text();
 
     QString supplyName = ui->comboBox->currentText();
-    QString oldVendorCode = ui->lineEdit_5->text();
-    QString newName = ui->lineEdit_10->text();
-    QString newCount = ui->lineEdit_15->text();
-    QString newVendorCode = ui->lineEdit_11->text();
-    QString newPrice = ui->lineEdit_12->text();
+    QString oldVendorCode = ui->oldVendorCode->text();
+    QString newName = ui->newName->text();
+    QString newCount = ui->newQuantity->text();
+    QString newVendorCode = ui->newVendorCode->text();
+    QString newPrice = ui->newPrice->text();
 
-    if (supplyName.isEmpty() || newName.isEmpty() || newVendorCode.isEmpty() || newPrice.isEmpty() || newCount.isEmpty()) {
-        QMessageBox::warning(this, "Ошибка", "Поля не могут быть пустыми!");
+    if (supplyName.isEmpty()){
+        QMessageBox::warning(this, "Ошибка", "Выберите товар для изменения!");
         return;
     }
+
+    // if (newName.trimmed().isEmpty() || newName.trimmed().isEmpty() || newName.trimmed().isEmpty() || newName.trimmed().isEmpty()){
+    //     QMessageBox::warning(this, "Ошибка", "Поля не могут быть пустыми!");
+    //     return;
+    // }
 
     bool updateSuccess = false;
     try {
@@ -199,14 +204,14 @@ void SupplierHomeWindowN::on_changeButton_clicked()
     if (updateSuccess) {
         QMessageBox::information(this, "Уведомление", "Данные о товаре успешно обновлены!");
         ui->comboBox->clear();
-        ui->lineEdit_4->clear();
-        ui->lineEdit_5->clear();
-        ui->lineEdit_6->clear();
-        ui->lineEdit_10->clear();
-        ui->lineEdit_11->clear();
-        ui->lineEdit_12->clear();
-        ui->lineEdit_14->clear();
-        ui->lineEdit_15->clear();
+        ui->oldName->clear();
+        ui->oldVendorCode->clear();
+        ui->oldPrice->clear();
+        ui->newName->clear();
+        ui->newVendorCode->clear();
+        ui->newPrice->clear();
+        ui->oldQuantity->clear();
+        ui->newQuantity->clear();
     } else {
         QMessageBox::warning(this, "Ошибка", "Не удалось обновить данные о товаре!");
     }
@@ -218,7 +223,7 @@ void SupplierHomeWindowN::on_changeButton_clicked()
 void SupplierHomeWindowN::on_deleteButton_clicked()
 {
     QString vendor = ui->vendorLabel->text();
-    QString vendorCode = ui->lineEdit_8->text();
+    QString vendorCode = ui->vendorCode_2->text();
 
     if (vendorCode.isEmpty()) {
         QMessageBox::warning(this, "Ошибка", "Выберите товар для удаления!");

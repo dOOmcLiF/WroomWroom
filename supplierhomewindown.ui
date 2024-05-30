@@ -66,7 +66,7 @@
      <attribute name="title">
       <string>Добавить товар</string>
      </attribute>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="name">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -82,7 +82,7 @@
        <string>Название</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="vendorCode">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -95,7 +95,7 @@
        <string>Артикул</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QLineEdit" name="price">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -121,7 +121,7 @@
        <string>Add</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_13">
+     <widget class="QLineEdit" name="quantity">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -155,7 +155,7 @@
        <string>Выберите товар</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
+     <widget class="QLineEdit" name="oldName">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -171,7 +171,7 @@
        <string>Название</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_5">
+     <widget class="QLineEdit" name="oldVendorCode">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -187,7 +187,7 @@
        <string>Артикул</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_6">
+     <widget class="QLineEdit" name="oldPrice">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -216,7 +216,7 @@
        <string>Change</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_10">
+     <widget class="QLineEdit" name="newName">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -232,7 +232,7 @@
        <string>Новое название</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_11">
+     <widget class="QLineEdit" name="newVendorCode">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -248,7 +248,7 @@
        <string>Новый артикул</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_12">
+     <widget class="QLineEdit" name="newPrice">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -264,7 +264,7 @@
        <string>Новая цена</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_14">
+     <widget class="QLineEdit" name="oldQuantity">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -280,7 +280,7 @@
        <string>Количество</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_15">
+     <widget class="QLineEdit" name="newQuantity">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -330,7 +330,7 @@
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_7">
+     <widget class="QLineEdit" name="name_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -346,7 +346,7 @@
        <string>Название</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_8">
+     <widget class="QLineEdit" name="vendorCode_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -362,7 +362,7 @@
        <string>Артикул</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_9">
+     <widget class="QLineEdit" name="price_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -378,7 +378,7 @@
        <string>Цена</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_16">
+     <widget class="QLineEdit" name="quantity_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -409,6 +409,31 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>quantity</tabstop>
+  <tabstop>vendorCode</tabstop>
+  <tabstop>price</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>oldName</tabstop>
+  <tabstop>oldQuantity</tabstop>
+  <tabstop>oldVendorCode</tabstop>
+  <tabstop>oldPrice</tabstop>
+  <tabstop>newName</tabstop>
+  <tabstop>newQuantity</tabstop>
+  <tabstop>newVendorCode</tabstop>
+  <tabstop>newPrice</tabstop>
+  <tabstop>changeButton</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>name_2</tabstop>
+  <tabstop>quantity_2</tabstop>
+  <tabstop>vendorCode_2</tabstop>
+  <tabstop>price_2</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>exitButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -241,16 +241,22 @@ bool DataBase::updateSupply(const QString& vendor, const QString& oldVendorCode,
 
     QStringList lines;
     QTextStream in(&file);
-    QString oldPrice;
+    QString oldPrice, oldName, oldCount;
     while (!in.atEnd()) {
         QString line = in.readLine().trimmed();
         QStringList parts = line.split(",");
         if (parts.size() >= 5 && parts[4] == vendor && parts[2] == oldVendorCode) {
+            oldName = parts[0];
+            oldCount = parts[1];
             oldPrice = parts[3];
-            parts[0] = newName;
-            parts[1] = newCount;
-            parts[2] = newVendorCode;
-            parts[3] = newPrice;
+            if (!newName.isEmpty()) parts[0] = newName;
+            if (newName.isEmpty()) parts[0] = oldName;
+            if (!newCount.isEmpty()) parts[1] = newCount;
+            if (newCount.isEmpty()) parts[1] = oldCount;
+            if (!newVendorCode.isEmpty()) parts[2] = newVendorCode;
+            if (newVendorCode.isEmpty()) parts[2] = oldVendorCode;
+            if (!newPrice.isEmpty()) parts[3] = newPrice;
+            if (newPrice.isEmpty()) parts[3] = oldPrice;
             line = parts.join(",");
         }
         lines.append(line);
@@ -261,7 +267,9 @@ bool DataBase::updateSupply(const QString& vendor, const QString& oldVendorCode,
     out << lines.join("\n") << "\n";
     file.close();
 
-    logPriceChange(oldVendorCode, oldPrice, newPrice);
+    if (!newPrice.isEmpty()) {
+        logPriceChange(oldVendorCode, oldPrice, newPrice);
+    }
 
     return true;
 }
