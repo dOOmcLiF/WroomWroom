@@ -19,6 +19,14 @@ AdminHomeWindowN::AdminHomeWindowN(QWidget *parent)
     ui->telephoneNumber->setInputMask("+7-000-000-00-00;");
     loadPurchaseHistory();
     loadPriceChangeHistory();
+
+    ui->company->hide();
+    loginX = ui->login->x();
+    loginY = ui->login->y();
+    passwordX = ui->password->x();
+    passwordY = ui->password->y();
+
+    connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AdminHomeWindowN::comboBoxIndexChanged);
 }
 
 AdminHomeWindowN::~AdminHomeWindowN()
@@ -43,13 +51,24 @@ void AdminHomeWindowN::on_regUser_clicked()
     const auto login = ui->login->text();
     const auto password = ui->password->text();
     const auto role = ui->comboBox->currentText();
+    const auto company = ui->company->text();
     bool RegSuccess = false;
     bool SameLogins = false;
+    bool RegSupplierSuccess = false;
 
     if (surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty())
     {
         QMessageBox::warning(this,"Ошибка","Поля не могут быть пустыми!");
         return;
+    }
+
+    if (ui->comboBox->currentIndex() == 1)
+    {
+        if (surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty() || company.isEmpty())
+        {
+            QMessageBox::warning(this,"Ошибка","Поля не могут быть пустыми!");
+            return;
+        }
     }
 
     try
@@ -77,6 +96,19 @@ void AdminHomeWindowN::on_regUser_clicked()
         QCoreApplication::quit();
     }
 
+    if (ui->comboBox->currentIndex() == 1)
+    {
+        try
+        {
+            RegSupplierSuccess = db.addSupplierCompany(surname, name, patronymic, company, address, telephoneNumber, login);
+        }
+        catch(DbCritical &e)
+        {
+            QMessageBox::critical(this,QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+            QCoreApplication::quit();
+        }
+    }
+
     if (RegSuccess == true)
     {
         QMessageBox::information(this,"Уведомление","Учетная запись успешно создана!");
@@ -87,6 +119,21 @@ void AdminHomeWindowN::on_regUser_clicked()
         ui->telephoneNumber->clear();
         ui->login->clear();
         ui->password->clear();
+        on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
+        return;
+    }
+
+    if (RegSupplierSuccess)
+    {
+        QMessageBox::information(this,"Уведомление","Учетная запись успешно создана!");
+        ui->surname->clear();
+        ui->name->clear();
+        ui->patronymic->clear();
+        ui->address->clear();
+        ui->telephoneNumber->clear();
+        ui->login->clear();
+        ui->password->clear();
+        ui->company->clear();
         on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
         return;
     }
@@ -161,7 +208,6 @@ void AdminHomeWindowN::on_deleteButton_clicked()
 
     if (answer == QMessageBox::Yes) {
         model->removeRow(row);
-        qDebug() << login;
         try
         {
             db.deleteUserFromFile(surname, name, patronymic, address, phone, login, password, role);
@@ -259,4 +305,20 @@ void AdminHomeWindowN::loadPriceChangeHistory()
 
     ui->priceChangeHistoryTable->setModel(priceChangeHistoryModel);
     ui->priceChangeHistoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+void AdminHomeWindowN::comboBoxIndexChanged(int index)
+{
+    int indexOfSupplierOption = 1;
+    if (index == indexOfSupplierOption) {
+        ui->company->setGeometry(loginX, loginY, ui->company->width(), ui->company->height());
+        ui->company->show();
+
+        ui->login->move(loginX, loginY + ui->company->height() + 10);
+        ui->password->move(passwordX, loginY + ui->company->height() + 10 + ui->login->height() + 10);
+    } else {
+        ui->company->hide();
+        ui->login->move(loginX, loginY);
+        ui->password->move(passwordX, passwordY);
+    }
 }

@@ -86,13 +86,15 @@ void BuyerHomeWindowN::loadSupplies()
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     QStringList suppliesData;
+    QStringList suppliersCompaniesData;
     try
     {
         suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     }
     catch (DbCritical &e)
     {
-        QMessageBox::critical(this,QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();
         return;
     }
@@ -101,9 +103,22 @@ void BuyerHomeWindowN::loadSupplies()
         QStringList supplyData = line.split(",");
         if (supplyData.size() >= 5) {
             QList<QStandardItem*> rowItems;
-            for (const QString& item : supplyData.mid(0, 5)) {
+            for (const QString& item : supplyData.mid(0, 4)) {
                 rowItems.append(new QStandardItem(item));
             }
+
+            QString supplierName = supplyData[4];
+            QString supplierInfo;
+            for (const QString& line : suppliersCompaniesData) {
+                QStringList suppliersCompaniesDetails = line.split(",");
+
+                if (suppliersCompaniesDetails.size() >= 7 && suppliersCompaniesDetails[6] == supplierName) {
+                    supplierInfo = suppliersCompaniesDetails[3];
+                    break;
+                }
+            }
+
+            rowItems.append(new QStandardItem(supplierInfo));
             model->appendRow(rowItems);
         }
     }
@@ -161,9 +176,9 @@ void BuyerHomeWindowN::on_pushButton_clicked()
 void BuyerHomeWindowN::on_tableView_doubleClicked(const QModelIndex &index)
 {
     QString vendorName = index.sibling(index.row(), 4).data().toString();
-    QStringList userData;
+    QStringList suppliersCompaniesData;
     try {
-        userData = db.loadUsersFromDataBase("Users.csv");
+        suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();
@@ -171,12 +186,12 @@ void BuyerHomeWindowN::on_tableView_doubleClicked(const QModelIndex &index)
     }
 
     QString vendorInfo;
-    for (const QString& line : userData) {
-        QStringList userDetails = line.split(",");
-        if (userDetails.size() >= 7 && userDetails[6] == "Supplier" && userDetails[0] == vendorName) {
-            vendorInfo = "Название: " + userDetails[0] + "\n"
-                         "Адрес: " + userDetails[3] + "\n"
-                         "Телефон: " + userDetails[4];
+    for (const QString& line : suppliersCompaniesData) {
+        QStringList suppliersCompaniesDetails = line.split(",");
+        if (suppliersCompaniesDetails.size() >= 7 && suppliersCompaniesDetails[3] == vendorName) {
+            vendorInfo = "Название: " + suppliersCompaniesDetails[3] + "\n"
+                         "Адрес: " + suppliersCompaniesDetails[4] + "\n"
+                         "Телефон: " + suppliersCompaniesDetails[5];
             break;
         }
     }

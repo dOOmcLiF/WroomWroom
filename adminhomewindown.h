@@ -37,6 +37,9 @@ private:
     QStandardItemModel *purchaseHistoryModel;
     void loadPriceChangeHistory();
     QStandardItemModel *priceChangeHistoryModel;
+    int loginX, loginY;
+    int passwordX, passwordY;
+    void comboBoxIndexChanged(int index);
 };
 
 #endif // ADMINHOMEWINDOWN_H

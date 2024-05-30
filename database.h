@@ -41,6 +41,8 @@ public:
     bool updateSupplyQuantity(const QString& vendorCode, int newQuantity);
     QStringList loadPriceChangeHistory(const QString& filename);
     bool checkSameLogins(const QString& login);
+    bool addSupplierCompany(const QString& surname, const QString& name, const QString& patronymic, const QString& companyName, const QString& address, const QString& telephoneNumber, const QString& login);
+    QStringList loadSuppliersCompaniesFromFile(const QString& filename);
 };
 
 #endif // DATABASE_H

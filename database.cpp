@@ -478,9 +478,50 @@ bool DataBase::checkSameLogins(const QString &login)
             return true;
             break;
         }
-
     }
 
     file.close();
     return false;
+}
+
+bool DataBase::addSupplierCompany(const QString &surname, const QString &name, const QString &patronymic, const QString &companyName, const QString &address, const QString &telephoneNumber, const QString& login)
+{
+    QFile file("SuppliersCompanies.csv");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QStringList lines;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        lines.append(line);
+    }
+
+    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7").arg(surname, name, patronymic, companyName, address, telephoneNumber, login);
+    lines.append(newLine);
+
+    file.resize(0);
+    QTextStream out(&file);
+    out << lines.join("\n") << "\n";
+    file.close();
+
+    return true;
+}
+
+QStringList DataBase::loadSuppliersCompaniesFromFile(const QString& filename)
+{
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QStringList suppliersCompanies;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        suppliersCompanies.append(line);
+    }
+    file.close();
+    return suppliersCompanies;
 }
