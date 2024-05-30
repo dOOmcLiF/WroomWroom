@@ -35,6 +35,7 @@ void RegWindowN::on_pushButton_clicked()
 
 
     bool RegSuccess = false;
+    bool SameLogins = false;
 
     if(surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty() || login.isEmpty())
     {
@@ -45,6 +46,22 @@ void RegWindowN::on_pushButton_clicked()
     if (password != repeatPassword)
     {
         QMessageBox::warning(this,"Ошибка","Пароли не совпадают");
+        return;
+    }
+
+    try
+    {
+        SameLogins = db.checkSameLogins(login);
+    }
+    catch(DbCritical &e)
+    {
+        QMessageBox::critical(this,QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
+    if (SameLogins)
+    {
+        QMessageBox::warning(this,QString("Ошибка"), QString("Введённый логин уже используется!"));
         return;
     }
 

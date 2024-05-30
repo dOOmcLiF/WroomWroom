@@ -24,6 +24,7 @@ public:
     explicit DataBase(QObject *parent = nullptr);
     int checkUsersDB(const QString& surname, const QString& password);
     bool addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password);
+    bool addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role);
     int getRoles();
     bool addSupplying(QString name, QString count, QString vendorCode, QString price, QString vendor);
     QStringList loadUsersFromDataBase(QString filename);
@@ -39,6 +40,7 @@ public:
     QStringList loadPurchasesFromDatabase(const QString& filename);
     bool updateSupplyQuantity(const QString& vendorCode, int newQuantity);
     QStringList loadPriceChangeHistory(const QString& filename);
+    bool checkSameLogins(const QString& login);
 };
 
 #endif // DATABASE_H

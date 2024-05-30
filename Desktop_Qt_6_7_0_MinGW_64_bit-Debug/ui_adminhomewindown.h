@@ -31,14 +31,15 @@ public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QLineEdit *lineEdit;
-    QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit_3;
-    QLineEdit *lineEdit_4;
-    QLineEdit *lineEdit_5;
+    QLineEdit *surname;
+    QLineEdit *name;
+    QLineEdit *patronymic;
+    QLineEdit *address;
+    QLineEdit *telephoneNumber;
     QComboBox *comboBox;
     QPushButton *regUser;
-    QLineEdit *lineEdit_6;
+    QLineEdit *password;
+    QLineEdit *login;
     QWidget *tab_2;
     QVBoxLayout *verticalLayout;
     QTableView *tableView;
@@ -63,21 +64,21 @@ public:
         tabWidget->setGeometry(QRect(10, 77, 782, 457));
         tab = new QWidget();
         tab->setObjectName("tab");
-        lineEdit = new QLineEdit(tab);
-        lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(80, 80, 113, 31));
-        lineEdit_2 = new QLineEdit(tab);
-        lineEdit_2->setObjectName("lineEdit_2");
-        lineEdit_2->setGeometry(QRect(80, 120, 113, 31));
-        lineEdit_3 = new QLineEdit(tab);
-        lineEdit_3->setObjectName("lineEdit_3");
-        lineEdit_3->setGeometry(QRect(80, 160, 113, 31));
-        lineEdit_4 = new QLineEdit(tab);
-        lineEdit_4->setObjectName("lineEdit_4");
-        lineEdit_4->setGeometry(QRect(260, 120, 113, 31));
-        lineEdit_5 = new QLineEdit(tab);
-        lineEdit_5->setObjectName("lineEdit_5");
-        lineEdit_5->setGeometry(QRect(260, 160, 113, 31));
+        surname = new QLineEdit(tab);
+        surname->setObjectName("surname");
+        surname->setGeometry(QRect(80, 80, 113, 31));
+        name = new QLineEdit(tab);
+        name->setObjectName("name");
+        name->setGeometry(QRect(80, 120, 113, 31));
+        patronymic = new QLineEdit(tab);
+        patronymic->setObjectName("patronymic");
+        patronymic->setGeometry(QRect(80, 160, 113, 31));
+        address = new QLineEdit(tab);
+        address->setObjectName("address");
+        address->setGeometry(QRect(80, 200, 113, 31));
+        telephoneNumber = new QLineEdit(tab);
+        telephoneNumber->setObjectName("telephoneNumber");
+        telephoneNumber->setGeometry(QRect(80, 240, 113, 31));
         comboBox = new QComboBox(tab);
         comboBox->addItem(QString());
         comboBox->addItem(QString());
@@ -88,9 +89,12 @@ public:
         regUser->setObjectName("regUser");
         regUser->setGeometry(QRect(590, 340, 111, 31));
         regUser->setStyleSheet(QString::fromUtf8("background-color: rgb(85, 255, 0);"));
-        lineEdit_6 = new QLineEdit(tab);
-        lineEdit_6->setObjectName("lineEdit_6");
-        lineEdit_6->setGeometry(QRect(260, 200, 113, 31));
+        password = new QLineEdit(tab);
+        password->setObjectName("password");
+        password->setGeometry(QRect(260, 160, 113, 31));
+        login = new QLineEdit(tab);
+        login->setObjectName("login");
+        login->setGeometry(QRect(260, 120, 113, 31));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName("tab_2");
@@ -132,10 +136,24 @@ public:
         statusbar = new QStatusBar(AdminHomeWindowN);
         statusbar->setObjectName("statusbar");
         AdminHomeWindowN->setStatusBar(statusbar);
+        QWidget::setTabOrder(surname, name);
+        QWidget::setTabOrder(name, patronymic);
+        QWidget::setTabOrder(patronymic, address);
+        QWidget::setTabOrder(address, telephoneNumber);
+        QWidget::setTabOrder(telephoneNumber, login);
+        QWidget::setTabOrder(login, password);
+        QWidget::setTabOrder(password, comboBox);
+        QWidget::setTabOrder(comboBox, regUser);
+        QWidget::setTabOrder(regUser, exitButton);
+        QWidget::setTabOrder(exitButton, deleteButton);
+        QWidget::setTabOrder(deleteButton, purchaseHistoryTable);
+        QWidget::setTabOrder(purchaseHistoryTable, priceChangeHistoryTable);
+        QWidget::setTabOrder(priceChangeHistoryTable, tableView);
+        QWidget::setTabOrder(tableView, tabWidget);
 
         retranslateUi(AdminHomeWindowN);
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(AdminHomeWindowN);
@@ -144,19 +162,20 @@ public:
     void retranslateUi(QMainWindow *AdminHomeWindowN)
     {
         AdminHomeWindowN->setWindowTitle(QCoreApplication::translate("AdminHomeWindowN", "MainWindow", nullptr));
-        lineEdit->setText(QString());
-        lineEdit->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\244\320\260\320\274\320\270\320\273\320\270\321\217", nullptr));
-        lineEdit_2->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\230\320\274\321\217", nullptr));
-        lineEdit_3->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\236\321\202\321\207\320\265\321\201\321\202\320\262\320\276", nullptr));
-        lineEdit_4->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\220\320\264\321\200\320\265\321\201", nullptr));
-        lineEdit_5->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\242\320\265\320\273\320\265\321\204\320\276\320\275", nullptr));
+        surname->setText(QString());
+        surname->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\244\320\260\320\274\320\270\320\273\320\270\321\217", nullptr));
+        name->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\230\320\274\321\217", nullptr));
+        patronymic->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\236\321\202\321\207\320\265\321\201\321\202\320\262\320\276", nullptr));
+        address->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\220\320\264\321\200\320\265\321\201", nullptr));
+        telephoneNumber->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\242\320\265\320\273\320\265\321\204\320\276\320\275", nullptr));
         comboBox->setItemText(0, QCoreApplication::translate("AdminHomeWindowN", "\320\237\320\276\320\272\321\203\320\277\320\260\321\202\320\265\320\273\321\214", nullptr));
         comboBox->setItemText(1, QCoreApplication::translate("AdminHomeWindowN", "\320\237\320\276\321\201\321\202\320\260\320\262\321\211\320\270\320\272", nullptr));
         comboBox->setItemText(2, QCoreApplication::translate("AdminHomeWindowN", "\320\220\320\264\320\274\320\270\320\275\320\270\321\201\321\202\321\200\320\260\321\202\320\276\321\200", nullptr));
 
         comboBox->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\224\320\276\320\273\320\266\320\275\320\276\321\201\321\202\321\214", nullptr));
         regUser->setText(QCoreApplication::translate("AdminHomeWindowN", "\320\227\320\260\321\200\320\265\320\263\320\270\321\201\321\202\321\200\320\270\321\200\320\276\320\262\320\260\321\202\321\214", nullptr));
-        lineEdit_6->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\237\320\260\321\200\320\276\320\273\321\214", nullptr));
+        password->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\237\320\260\321\200\320\276\320\273\321\214", nullptr));
+        login->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\233\320\276\320\263\320\270\320\275", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("AdminHomeWindowN", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", nullptr));
         deleteButton->setText(QCoreApplication::translate("AdminHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("AdminHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", nullptr));

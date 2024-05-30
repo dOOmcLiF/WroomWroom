@@ -16,7 +16,7 @@ AdminHomeWindowN::AdminHomeWindowN(QWidget *parent)
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->purchaseHistoryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->priceChangeHistoryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->lineEdit_5->setInputMask("+7-000-000-00-00;");
+    ui->telephoneNumber->setInputMask("+7-000-000-00-00;");
     loadPurchaseHistory();
     loadPriceChangeHistory();
 }
@@ -35,12 +35,13 @@ void AdminHomeWindowN::on_exitButton_clicked()
 
 void AdminHomeWindowN::on_regUser_clicked()
 {
-    const auto surname = ui->lineEdit->text();
-    const auto name = ui->lineEdit_2->text();
-    const auto patronymic = ui->lineEdit_3->text();
-    const auto address = ui->lineEdit_4->text();
-    const auto telephoneNumber = ui->lineEdit_5->text();
-    const auto password = ui->lineEdit_6->text();
+    const auto surname = ui->surname->text();
+    const auto name = ui->name->text();
+    const auto patronymic = ui->patronymic->text();
+    const auto address = ui->address->text();
+    const auto telephoneNumber = ui->telephoneNumber->text();
+    const auto login = ui->login->text();
+    const auto password = ui->password->text();
     const auto role = ui->comboBox->currentText();
     bool RegSuccess = false;
 
@@ -52,7 +53,7 @@ void AdminHomeWindowN::on_regUser_clicked()
 
     try
     {
-        RegSuccess = db.addUser(surname,name,patronymic,address,telephoneNumber,password,role);
+        RegSuccess = db.addUserByAdmin(surname, name, patronymic, address, telephoneNumber,login, password, role);
     }
     catch(DbCritical &e)
     {
@@ -177,7 +178,6 @@ void AdminHomeWindowN::loadPurchaseHistory()
             QString customerName = purchaseDetails[3];
 
             QString fullCustomerName;
-            qDebug() << purchaseDetails;
             for (const QString& userLine : userData) {
                 QStringList userDetails = userLine.split(",");
                 if (userDetails.size() >= 8 && userDetails[7] == "Buyer" && userDetails[0] == customerName) {

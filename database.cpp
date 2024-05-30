@@ -52,18 +52,62 @@ int DataBase::checkUsersDB(const QString& login, const QString& password)
 
 bool DataBase::addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password)
 {
-    bool RegSuccess = false;
-    QString roleToWrite = "Buyer";
-
     QFile file("Users.csv");
-    file.open(QFile::Append);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        throw DbCritical();
+    }
 
-    QTextStream ts(&file);
-    ts << surname << "," << name << "," << patronymic << "," << address << "," << telephoneNumber << "," << login << "," << password << "," << roleToWrite << "\n";
+    QStringList lines;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        lines.append(line);
+    }
+
+    QString roleToWrite = "Buyer";
+    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite);
+    lines.append(newLine);
+
+    file.resize(0);
+    QTextStream out(&file);
+    out << lines.join("\n") << "\n";
     file.close();
-    RegSuccess = true;
 
-    return RegSuccess;
+    return true;
+}
+
+bool DataBase::addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role)
+{
+    QFile file("Users.csv");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QStringList lines;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        lines.append(line);
+    }
+
+    QString roleToWrite = "";
+
+    if (role == "Покупатель")
+        roleToWrite = "Buyer";
+    if (role == "Поставщик")
+        roleToWrite = "Supplier";
+    if (role == "Администратор")
+        roleToWrite = "Admin";
+
+    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite);
+    lines.append(newLine);
+
+    file.resize(0);
+    QTextStream out(&file);
+    out << lines.join("\n") << "\n";
+    file.close();
+
+    return true;
 }
 
 int DataBase::getRoles()
@@ -303,7 +347,7 @@ void DataBase::deleteUserFromFile(const QString& surname, const QString& name, c
              parts[2] != patronymic ||
              parts[3] != address ||
              parts[4] != phone ||
-             parts[5] != phone ||
+             parts[5] != login ||
              parts[6] != password ||
              parts[7] != role)) {
             lines.append(line);
@@ -408,4 +452,27 @@ QStringList DataBase::loadPriceChangeHistory(const QString& filename)
     } else {
         throw DbCritical();
     }
+}
+
+bool DataBase::checkSameLogins(const QString &login)
+{
+    QFile file("Users.csv");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList parts = line.split(",");
+
+        if (parts[5] == login) {
+            return true;
+            break;
+        }
+
+    }
+
+    file.close();
+    return false;
 }
