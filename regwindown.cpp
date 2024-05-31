@@ -16,10 +16,29 @@ RegWindowN::RegWindowN(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("WroomWroom");
     ui->phoneNumber->setInputMask("+7-000-000-00-00;");
+
+    nameValidator = new QRegularExpressionValidator(QRegularExpression("^[а-яА-Я\\s]+$"), this);
+    patronymicValidator = new QRegularExpressionValidator(QRegularExpression("^[а-яА-Я\\s]+$"), this);
+    addressValidator = new QRegularExpressionValidator(QRegularExpression("^[а-яА-Я0-9,.\\s]+$"), this);
+    loginValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9]+$"), this);
+    passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]\\{};:\"\\\\|.<>\\/?]+$"), this);
+
+    ui->surname->setValidator(nameValidator);
+    ui->name->setValidator(nameValidator);
+    ui->patronymic->setValidator(patronymicValidator);
+    ui->address->setValidator(addressValidator);
+    ui->login->setValidator(loginValidator);
+    ui->password->setValidator(passwordValidator);
+    ui->repeatPassword->setValidator(passwordValidator);
 }
 
 RegWindowN::~RegWindowN()
 {
+    delete nameValidator;
+    delete patronymicValidator;
+    delete addressValidator;
+    delete loginValidator;
+    delete passwordValidator;
     delete ui;
 }
 

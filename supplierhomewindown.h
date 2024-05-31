@@ -2,6 +2,8 @@
 #define SUPPLIERHOMEWINDOWN_H
 
 #include <QMainWindow>
+#include <QValidator>
+
 #include "database.h"
 
 namespace Ui {
@@ -33,6 +35,10 @@ private slots:
 private:
     Ui::SupplierHomeWindowN *ui;
     DataBase db;
+    QRegularExpressionValidator* nameValidator;
+    QRegularExpressionValidator* vendorCodeValidator;
+    QIntValidator* quantityValidator;
+    QDoubleValidator* priceValidator;
 };
 
 #endif // SUPPLIERHOMEWINDOWN_H

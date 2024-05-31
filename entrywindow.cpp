@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("WroomWroom");
+
+    ui->password->setEchoMode(QLineEdit::Password);
 }
 
 MainWindow::~MainWindow()
@@ -44,7 +47,7 @@ void MainWindow::on_pushButton_clicked()
     }
     catch (UserNotFound &e)
     {
-        QMessageBox::warning(this,"Ошибка","Такой учетной записи не существует!\nПроверьте правильность введённых данных!");
+        QMessageBox::warning(this,"Ошибка","Неправильный логин или пароль!\nПроверьте правильность введённых данных!");
         return;
     }
 

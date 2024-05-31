@@ -129,6 +129,7 @@ void BuyerHomeWindowN::loadSupplies()
 void BuyerHomeWindowN::on_pushButton_clicked()
 {
     int vendorCode = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 2)).toInt();
+    QString vendorName = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 4)).toString();
 
     if (vendorCode == 0) {
         QMessageBox::information(this, "Ошибка", "Выделите товар для добавления!");
@@ -136,8 +137,10 @@ void BuyerHomeWindowN::on_pushButton_clicked()
     }
 
     QStringList suppliesData;
+    QStringList suppliersCompaniesData;
     try {
         suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();
@@ -147,8 +150,17 @@ void BuyerHomeWindowN::on_pushButton_clicked()
     for (const QString& line : suppliesData) {
         QStringList supplyData = line.split(",");
         if (supplyData.size() >= 5) {
+            // QString vendorNameFromData;
+            // for (const QString& line1 : suppliersCompaniesData) {
+            //     QStringList suppliersCompaniesDetails = line1.split(",");
+            //     if (suppliersCompaniesDetails.size() >= 7) {
+            //         vendorNameFromData = suppliersCompaniesDetails[3];
+            //     }
+            //     qDebug() << suppliersCompaniesDetails;
+            // }
+
             int vendorCodeFromData = supplyData[2].toInt();
-            if (vendorCodeFromData == vendorCode) {
+            if (vendorCodeFromData == vendorCode/* && vendorNameFromData == vendorName*/) {
                 int quantity = supplyData[1].toInt();
                 if (quantity == 0) {
                     QMessageBox::warning(this, "Ошибка", "Товар отсутствует на складе.");

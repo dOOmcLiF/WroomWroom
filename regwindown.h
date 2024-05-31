@@ -4,6 +4,7 @@
 #include "database.h"
 
 #include <QMainWindow>
+#include <QValidator>
 
 namespace Ui {
 class RegWindowN;
@@ -26,6 +27,11 @@ private slots:
 private:
     Ui::RegWindowN *ui;
     DataBase db;
+    QRegularExpressionValidator* nameValidator;
+    QRegularExpressionValidator* patronymicValidator;
+    QRegularExpressionValidator* addressValidator;
+    QRegularExpressionValidator* loginValidator;
+    QRegularExpressionValidator* passwordValidator;
 };
 
 #endif // REGWINDOWN_H

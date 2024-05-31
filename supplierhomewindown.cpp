@@ -14,11 +14,33 @@ SupplierHomeWindowN::SupplierHomeWindowN(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("WroomWroom");
     connect(ui->comboBox_2, &QComboBox::currentIndexChanged, this, &SupplierHomeWindowN::on_comboBox_currentIndexChanged);
+
+    nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Zа-яА-Я0-9\\s]+$"), this);
+    vendorCodeValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9]+$"), this);
+    quantityValidator = new QIntValidator(this);
+    priceValidator = new QDoubleValidator(this);
+    priceValidator->setLocale(QLocale::English);
+    priceValidator->setNotation(QDoubleValidator::StandardNotation);
+    priceValidator->setDecimals(2);
+
+    ui->name->setValidator(nameValidator);
+    ui->vendorCode->setValidator(vendorCodeValidator);
+    ui->quantity->setValidator(quantityValidator);
+    ui->price->setValidator(priceValidator);
+
+    ui->newName->setValidator(nameValidator);
+    ui->newVendorCode->setValidator(vendorCodeValidator);
+    ui->newQuantity->setValidator(quantityValidator);
+    ui->newPrice->setValidator(priceValidator);
 }
 
 SupplierHomeWindowN::~SupplierHomeWindowN()
 {
     delete ui;
+    delete nameValidator;
+    delete vendorCodeValidator;
+    delete quantityValidator;
+    delete priceValidator;
 }
 
 void SupplierHomeWindowN::on_exitButton_clicked()
@@ -45,8 +67,11 @@ void SupplierHomeWindowN::on_addButton_clicked()
 
     try {
         if (db.isVendorCodeExists(vendorCode)) {
-            QMessageBox::warning(this, "Ошибка", "Товар с таким артикулом уже существует!");
-            return;
+            QMessageBox::StandardButton reply = QMessageBox::question(this, "Предупреждение", "Товар с таким артикулом уже существует!\nХотите добавить новый товар с таким же артикулом, но с другими ценой и количеством?",
+                                                                      QMessageBox::Yes | QMessageBox::No);
+            if (reply == QMessageBox::No) {
+                return;
+            }
         }
     } catch (DbCritical& e) {
         QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");
@@ -171,30 +196,34 @@ void SupplierHomeWindowN::on_changeButton_clicked()
     QString newVendorCode = ui->newVendorCode->text();
     QString newPrice = ui->newPrice->text();
 
-    if (supplyName.isEmpty()){
+    if (supplyName.isEmpty()) {
         QMessageBox::warning(this, "Ошибка", "Выберите товар для изменения!");
         return;
     }
 
-    bool updateSuccess = false;
-    try {
-        if (db.isVendorCodeExists(newVendorCode)) {
-            QMessageBox::warning(this, "Ошибка", "Товар с таким артикулом уже существует!");
+    if (oldVendorCode != newVendorCode) {
+        try {
+            if (db.isVendorCodeExists(newVendorCode)) {
+                QMessageBox::StandardButton reply = QMessageBox::question(this, "Предупреждение", "Товар с таким новым артикулом уже существует!\nХотите обновить товар с таким артикулом?",
+                                                                          QMessageBox::Yes | QMessageBox::No);
+                if (reply == QMessageBox::No) {
+                    return;
+                }
+            }
+        } catch (DbCritical& e) {
+            QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");
+            QCoreApplication::quit();
             return;
         }
+    }
+
+    bool updateSuccess = false;
+    try {
+        updateSuccess = db.updateSupply(vendor, oldVendorCode, newName, newCount, newVendorCode, newPrice);
     } catch (DbCritical& e) {
         QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");
         QCoreApplication::quit();
         return;
-    }
-    try
-    {
-        updateSuccess = db.updateSupply(vendor, oldVendorCode, newName, newCount, newVendorCode, newPrice);
-    }
-    catch(DbCritical &e)
-    {
-        QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");
-        QCoreApplication::quit();
     }
 
     if (updateSuccess) {
@@ -212,8 +241,6 @@ void SupplierHomeWindowN::on_changeButton_clicked()
     } else {
         QMessageBox::warning(this, "Ошибка", "Не удалось обновить данные о товаре!");
     }
-
-
 }
 
 

@@ -3,3 +3,4 @@ surname,name,patronymic,address,+7-111-111-11-11,admin,1,Admin
 Петров,Пётр,Петрович,Дигидон,+7-891-239-12-73,petrov,123,Buyer
 Олегов,Олег,Олегович,Москва,+7-219-830-19-28,olegov,123,Buyer
 Поставщиков,Поставщик,Поставщиковович,Красноярск,+7-123-089-12-39,supply,1,Supplier
+surname,name,patronymic,address,+7-111-111-11-11,sup2,1,Supplier
