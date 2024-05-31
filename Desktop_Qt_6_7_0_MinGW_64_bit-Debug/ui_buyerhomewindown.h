@@ -62,7 +62,9 @@ public:
     {
         if (BuyerHomeWindowN->objectName().isEmpty())
             BuyerHomeWindowN->setObjectName("BuyerHomeWindowN");
-        BuyerHomeWindowN->resize(800, 625);
+        BuyerHomeWindowN->resize(800, 622);
+        BuyerHomeWindowN->setMinimumSize(QSize(800, 622));
+        BuyerHomeWindowN->setMaximumSize(QSize(800, 622));
         centralwidget = new QWidget(BuyerHomeWindowN);
         centralwidget->setObjectName("centralwidget");
         exitButton = new QPushButton(centralwidget);

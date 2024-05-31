@@ -12,6 +12,7 @@ AdminHomeWindowN::AdminHomeWindowN(QWidget *parent)
     , ui(new Ui::AdminHomeWindowN)
 {
     ui->setupUi(this);
+    this->setWindowTitle("WroomWroom");
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->purchaseHistoryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);

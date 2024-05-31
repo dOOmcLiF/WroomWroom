@@ -58,6 +58,8 @@ public:
         if (AdminHomeWindowN->objectName().isEmpty())
             AdminHomeWindowN->setObjectName("AdminHomeWindowN");
         AdminHomeWindowN->resize(800, 614);
+        AdminHomeWindowN->setMinimumSize(QSize(800, 614));
+        AdminHomeWindowN->setMaximumSize(QSize(800, 614));
         centralwidget = new QWidget(AdminHomeWindowN);
         centralwidget->setObjectName("centralwidget");
         tabWidget = new QTabWidget(centralwidget);

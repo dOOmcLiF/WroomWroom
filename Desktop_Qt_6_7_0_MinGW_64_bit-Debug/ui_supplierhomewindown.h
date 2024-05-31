@@ -62,6 +62,8 @@ public:
         if (SupplierHomeWindowN->objectName().isEmpty())
             SupplierHomeWindowN->setObjectName("SupplierHomeWindowN");
         SupplierHomeWindowN->resize(800, 600);
+        SupplierHomeWindowN->setMinimumSize(QSize(800, 600));
+        SupplierHomeWindowN->setMaximumSize(QSize(800, 600));
         centralwidget = new QWidget(SupplierHomeWindowN);
         centralwidget->setObjectName("centralwidget");
         vendorLabel = new QLabel(centralwidget);

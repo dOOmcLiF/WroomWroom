@@ -17,6 +17,7 @@ BuyerHomeWindowN::BuyerHomeWindowN(QWidget *parent)
     , ui(new Ui::BuyerHomeWindowN)
 {
     ui->setupUi(this);
+    this->setWindowTitle("WroomWroom");
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->setWindowFlags(this->windowFlags() | Qt::Window | Qt::WindowMinMaxButtonsHint);

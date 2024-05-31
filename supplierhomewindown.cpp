@@ -12,6 +12,7 @@ SupplierHomeWindowN::SupplierHomeWindowN(QWidget *parent)
     , ui(new Ui::SupplierHomeWindowN)
 {
     ui->setupUi(this);
+    this->setWindowTitle("WroomWroom");
     connect(ui->comboBox_2, &QComboBox::currentIndexChanged, this, &SupplierHomeWindowN::on_comboBox_currentIndexChanged);
 }
 

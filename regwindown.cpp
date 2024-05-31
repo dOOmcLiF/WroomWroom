@@ -14,6 +14,7 @@ RegWindowN::RegWindowN(QWidget *parent)
     , ui(new Ui::RegWindowN)
 {
     ui->setupUi(this);
+    this->setWindowTitle("WroomWroom");
     ui->phoneNumber->setInputMask("+7-000-000-00-00;");
 }
 
