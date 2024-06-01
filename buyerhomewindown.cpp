@@ -90,7 +90,7 @@ void BuyerHomeWindowN::loadSupplies()
     QStringList suppliersCompaniesData;
     try
     {
-        suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliesData = db.loadSuppliesFromDataBase();
         suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     }
     catch (DbCritical &e)
@@ -139,7 +139,7 @@ void BuyerHomeWindowN::on_pushButton_clicked()
     QStringList suppliesData;
     QStringList suppliersCompaniesData;
     try {
-        suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliesData = db.loadSuppliesFromDataBase();
         suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
@@ -226,7 +226,7 @@ void BuyerHomeWindowN::onItemDoubleClicked(QListWidgetItem *item)
         int vendorCode = item->data(Qt::UserRole).toInt();
         QStringList suppliesData;
         try {
-            suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+            suppliesData = db.loadSuppliesFromDataBase();
         } catch (DbCritical &e) {
             QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
             QCoreApplication::quit();
@@ -359,6 +359,19 @@ void BuyerHomeWindowN::showSuccessDialog()
         return;
     }
 
+    QStringList cardData;
+    try {
+        cardData = db.loadCardDataFromDatabase();
+    }
+    catch (DbCritical &e) {
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
+    QString customerName = ui->nameLabel->text();
+
+    if (customerName == cardData[])
+
     QMessageBox::StandardButton reply = QMessageBox::question(this, "Подтверждение покупки",
                                                               "Вы уверены, что хотите совершить покупку?",
                                                               QMessageBox::Yes | QMessageBox::No);
@@ -382,7 +395,7 @@ void BuyerHomeWindowN::showSuccessDialog()
         QDate currentDate = QDate::currentDate();
         QString dateString = currentDate.toString("dd.MM.yyyy");
 
-        QString customerName = ui->nameLabel->text();
+
 
         for (const QString &purchaseItem : purchaseData) {
             QStringList parts = purchaseItem.split(",");

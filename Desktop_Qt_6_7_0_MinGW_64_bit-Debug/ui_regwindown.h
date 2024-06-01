@@ -35,6 +35,7 @@ public:
     QToolButton *toolButton;
     QLineEdit *password;
     QLineEdit *login;
+    QLineEdit *email;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -61,10 +62,10 @@ public:
         surname->setGeometry(QRect(200, 90, 201, 31));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(230, 440, 141, 31));
+        pushButton->setGeometry(QRect(230, 480, 141, 31));
         repeatPassword = new QLineEdit(centralwidget);
         repeatPassword->setObjectName("repeatPassword");
-        repeatPassword->setGeometry(QRect(200, 340, 201, 31));
+        repeatPassword->setGeometry(QRect(200, 380, 201, 31));
         patronymic = new QLineEdit(centralwidget);
         patronymic->setObjectName("patronymic");
         patronymic->setGeometry(QRect(200, 170, 201, 31));
@@ -76,14 +77,17 @@ public:
 "image: url(:/new/backlogo/5700554.png);"));
         password = new QLineEdit(centralwidget);
         password->setObjectName("password");
-        password->setGeometry(QRect(200, 380, 201, 31));
+        password->setGeometry(QRect(200, 420, 201, 31));
         login = new QLineEdit(centralwidget);
         login->setObjectName("login");
-        login->setGeometry(QRect(200, 300, 201, 31));
+        login->setGeometry(QRect(200, 340, 201, 31));
+        email = new QLineEdit(centralwidget);
+        email->setObjectName("email");
+        email->setGeometry(QRect(200, 290, 201, 31));
         RegWindowN->setCentralWidget(centralwidget);
         menubar = new QMenuBar(RegWindowN);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 600, 21));
+        menubar->setGeometry(QRect(0, 0, 600, 25));
         RegWindowN->setMenuBar(menubar);
         statusbar = new QStatusBar(RegWindowN);
         statusbar->setObjectName("statusbar");
@@ -92,7 +96,8 @@ public:
         QWidget::setTabOrder(name, patronymic);
         QWidget::setTabOrder(patronymic, address);
         QWidget::setTabOrder(address, phoneNumber);
-        QWidget::setTabOrder(phoneNumber, login);
+        QWidget::setTabOrder(phoneNumber, email);
+        QWidget::setTabOrder(email, login);
         QWidget::setTabOrder(login, repeatPassword);
         QWidget::setTabOrder(repeatPassword, password);
         QWidget::setTabOrder(password, pushButton);
@@ -116,6 +121,7 @@ public:
         toolButton->setText(QString());
         password->setPlaceholderText(QCoreApplication::translate("RegWindowN", "\320\237\320\276\320\262\321\202\320\276\321\200\320\270\321\202\320\265 \320\277\320\260\321\200\320\276\320\273\321\214", nullptr));
         login->setPlaceholderText(QCoreApplication::translate("RegWindowN", "\320\233\320\276\320\263\320\270\320\275", nullptr));
+        email->setPlaceholderText(QCoreApplication::translate("RegWindowN", "\320\220\320\264\321\200\320\265\321\201 \321\215\320\273\320\265\320\272\321\202\321\200\320\276\320\275\320\275\320\276\320\271 \320\277\320\276\321\207\321\202\321\213", nullptr));
     } // retranslateUi
 
 };

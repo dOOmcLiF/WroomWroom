@@ -15,6 +15,7 @@ SOURCES += \
     database.cpp \
     entrywindow.cpp \
     main.cpp \
+    pricechangehistoryunit.cpp \
     regwindown.cpp \
     supplierhomewindown.cpp
 
@@ -23,6 +24,7 @@ HEADERS += \
     buyerhomewindown.h \
     database.h \
     entrywindow.h \
+    pricechangehistoryunit.h \
     regwindown.h \
     supplierhomewindown.h
 

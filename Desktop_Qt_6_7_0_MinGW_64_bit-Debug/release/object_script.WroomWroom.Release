@@ -3,6 +3,7 @@ release/buyerhomewindown.o
 release/database.o
 release/entrywindow.o
 release/main.o
+release/pricechangehistoryunit.o
 release/regwindown.o
 release/supplierhomewindown.o
 release/qrc_backlogo.o
