@@ -67,11 +67,8 @@ void SupplierHomeWindowN::on_addButton_clicked()
 
     try {
         if (db.isVendorCodeExists(vendorCode)) {
-            QMessageBox::StandardButton reply = QMessageBox::question(this, "Предупреждение", "Товар с таким артикулом уже существует!\nХотите добавить новый товар с таким же артикулом, но с другими ценой и количеством?",
-                                                                      QMessageBox::Yes | QMessageBox::No);
-            if (reply == QMessageBox::No) {
-                return;
-            }
+            QMessageBox::warning(this, "Ошибка", "Товар с таким артикулом уже существует!\nНевозможно добавить новый товар с таким же артикулом.");
+            return;
         }
     } catch (DbCritical& e) {
         QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");
@@ -204,11 +201,8 @@ void SupplierHomeWindowN::on_changeButton_clicked()
     if (oldVendorCode != newVendorCode) {
         try {
             if (db.isVendorCodeExists(newVendorCode)) {
-                QMessageBox::StandardButton reply = QMessageBox::question(this, "Предупреждение", "Товар с таким новым артикулом уже существует!\nХотите обновить товар с таким артикулом?",
-                                                                          QMessageBox::Yes | QMessageBox::No);
-                if (reply == QMessageBox::No) {
-                    return;
-                }
+                QMessageBox::warning(this, "Ошибка", "Товар с таким новым артикулом уже существует!\nНевозможно обновить товар с таким же артикулом.");
+                return;
             }
         } catch (DbCritical& e) {
             QMessageBox::critical(this, "Ошибка", "База данных не открыта!\nОбратитесь к администратору!");

@@ -50,7 +50,7 @@ int DataBase::checkUsersDB(const QString& login, const QString& password)
     return AuthSuccess;
 }
 
-bool DataBase::addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password)
+bool DataBase::addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& email)
 {
     QFile file("Users.csv");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
@@ -65,7 +65,7 @@ bool DataBase::addUser(const QString& surname, const QString& name, const QStrin
     }
 
     QString roleToWrite = "Buyer";
-    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite);
+    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite, email);
     lines.append(newLine);
 
     file.resize(0);
@@ -76,7 +76,7 @@ bool DataBase::addUser(const QString& surname, const QString& name, const QStrin
     return true;
 }
 
-bool DataBase::addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role)
+bool DataBase::addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role, const QString& email)
 {
     QFile file("Users.csv");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
@@ -99,7 +99,7 @@ bool DataBase::addUserByAdmin(const QString& surname, const QString& name, const
     if (role == "Администратор")
         roleToWrite = "Admin";
 
-    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite);
+    QString newLine = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9").arg(surname, name, patronymic, address, telephoneNumber, login, password, roleToWrite, email);
     lines.append(newLine);
 
     file.resize(0);
@@ -150,10 +150,10 @@ bool DataBase::addSupplying(QString name, QString count, QString vendorCode, QSt
     return AddSupplyingSuccess;
 }
 
-QStringList DataBase::loadUsersFromDataBase(QString filename)
+QStringList DataBase::loadUsersFromDataBase()
 {
     QStringList userData;
-    QFile file(filename);
+    QFile file("Users.csv");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         throw DbCritical();
     }
@@ -169,10 +169,10 @@ QStringList DataBase::loadUsersFromDataBase(QString filename)
     return userData;
 }
 
-QStringList DataBase::loadSuppliesFromDataBase(QString filename)
+QStringList DataBase::loadSuppliesFromDataBase()
 {
     QStringList userData;
-    QFile file(filename);
+    QFile file("Supplies.csv");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         throw DbCritical();
     }
@@ -328,6 +328,7 @@ bool DataBase::isVendorCodeExists(const QString& vendorCode)
         if (parts.size() >= 4 && parts[2] == vendorCode) {
             file.close();
             return true;
+            break;
         }
     }
 
@@ -427,10 +428,10 @@ void DataBase::savePurchaseToDatabase(const QString &filename, const QString &ve
     }
 }
 
-QStringList DataBase::loadPurchasesFromDatabase(const QString& filename)
+QStringList DataBase::loadPurchasesFromDatabase()
 {
     QStringList purchaseData;
-    QFile file(filename);
+    QFile file("Purchases.csv");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         throw DbCritical();
     }
@@ -445,10 +446,10 @@ QStringList DataBase::loadPurchasesFromDatabase(const QString& filename)
     return purchaseData;
 }
 
-QStringList DataBase::loadPriceChangeHistory(const QString& filename)
+QStringList DataBase::loadPriceChangeHistory()
 {
     QStringList priceChangeData;
-    QFile file(filename);
+    QFile file("PriceChangeHistory.csv");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
     QTextStream in(&file);
         while (!in.atEnd()) {
@@ -524,4 +525,100 @@ QStringList DataBase::loadSuppliersCompaniesFromFile(const QString& filename)
     }
     file.close();
     return suppliersCompanies;
+}
+
+QStringList DataBase::loadCardDataFromDatabase()
+{
+    QStringList cardData;
+    QFile file("Cards.csv");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw DbCritical();
+    }
+    QString key = "SecretKeyForEncryptCardNumber";
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList parts = line.split(",");
+        if (parts.size() >= 3) {
+            QString encryptedCardNumber = parts[0];
+            QString decryptedCardNumber = decryptCardData(encryptedCardNumber, key);
+            cardData.append(decryptedCardNumber + "," + parts[1] + "," + parts[2]);
+        }
+    }
+    file.close();
+    return cardData;
+}
+
+void DataBase::saveCardDataToDatabase(const QString& cardNumber, const QString& expiryDate, const QString& buyerLogin)
+{
+    QFile file("Cards.csv");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QStringList lines;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        lines.append(line);
+    }
+
+    QString key = "SecretKeyForEncryptCardNumber";
+    QString newCardNumber = encryptCardData(cardNumber, key);
+
+    QString newLine = QString("%1,%2,%3").arg(newCardNumber, expiryDate, buyerLogin);
+    lines.append(newLine);
+
+    file.resize(0);
+    QTextStream out(&file);
+    out << lines.join("\n") << "\n";
+
+    file.close();
+}
+
+bool DataBase::isCardDataExists(const QString& buyerLogin)
+{
+    QFile file("Cards.csv");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw DbCritical();
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList parts = line.split(",");
+        if (parts.size() >= 3 && parts[2] == buyerLogin) {
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
+}
+
+QString DataBase::encryptCardData(QString cardNumber,QString key)
+{
+    QString encryptedCardNumber;
+    QByteArray cardBytes = cardNumber.toUtf8();
+    QByteArray keyBytes = key.toUtf8();
+
+    for (int i = 0, j = 0; i < cardBytes.size(); i++, j = (j + 1) % keyBytes.size()) {
+        encryptedCardNumber.append(static_cast<char>(cardBytes[i] ^ keyBytes[j]));
+    }
+
+    return encryptedCardNumber;
+}
+
+QString DataBase::decryptCardData(QString encryptedCardNumber, QString key)
+{
+    QString decryptedCardNumber;
+    QByteArray encryptedBytes = encryptedCardNumber.toUtf8();
+    QByteArray keyBytes = key.toUtf8();
+
+    for (int i = 0, j = 0; i < encryptedBytes.size(); i++, j = (j + 1) % keyBytes.size()) {
+        decryptedCardNumber.append(static_cast<char>(encryptedBytes[i] ^ keyBytes[j]));
+    }
+
+    return decryptedCardNumber;
 }

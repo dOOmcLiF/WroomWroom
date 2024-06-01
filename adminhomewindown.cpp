@@ -53,6 +53,7 @@ void AdminHomeWindowN::on_regUser_clicked()
     const auto password = ui->password->text();
     const auto role = ui->comboBox->currentText();
     const auto company = ui->company->text();
+    const auto email = ui->email->text();
     bool RegSuccess = false;
     bool SameLogins = false;
     bool RegSupplierSuccess = false;
@@ -89,7 +90,7 @@ void AdminHomeWindowN::on_regUser_clicked()
 
     try
     {
-        RegSuccess = db.addUserByAdmin(surname, name, patronymic, address, telephoneNumber,login, password, role);
+        RegSuccess = db.addUserByAdmin(surname, name, patronymic, address, telephoneNumber,login, password, role, email);
     }
     catch(DbCritical &e)
     {
@@ -120,11 +121,12 @@ void AdminHomeWindowN::on_regUser_clicked()
         ui->telephoneNumber->clear();
         ui->login->clear();
         ui->password->clear();
+        ui->email->clear();
         on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
         return;
     }
 
-    if (RegSupplierSuccess)
+    if (RegSupplierSuccess == true)
     {
         QMessageBox::information(this,"Уведомление","Учетная запись успешно создана!");
         ui->surname->clear();
@@ -135,6 +137,7 @@ void AdminHomeWindowN::on_regUser_clicked()
         ui->login->clear();
         ui->password->clear();
         ui->company->clear();
+        ui->email->clear();
         on_tabWidget_currentChanged(ui->tabWidget->currentIndex());
         return;
     }
@@ -144,17 +147,17 @@ void AdminHomeWindowN::on_regUser_clicked()
 
 }
 
-void AdminHomeWindowN::readUsersFromFile(const QString& filename)
+void AdminHomeWindowN::readUsersFromFile()
 {
     model->removeRows(0, model->rowCount());
 
-    QStringList headers = {"Фамилия", "Имя", "Отчество", "Адрес", "Телефон", "Логин", "Пароль", "Роль"};
+    QStringList headers = {"Фамилия", "Имя", "Отчество", "Адрес", "Телефон", "Логин", "Пароль", "Роль","Эл. почта"};
     model->setHorizontalHeaderLabels(headers);
 
     QStringList userData;
     try
     {
-        userData = db.loadUsersFromDataBase(filename);
+        userData = db.loadUsersFromDataBase();
     }
     catch (DbCritical& e)
     {
@@ -178,7 +181,7 @@ void AdminHomeWindowN::on_tabWidget_currentChanged(int index)
 {
     model = new QStandardItemModel(this);
     ui->tableView->setModel(model);
-    readUsersFromFile("Users.csv");
+    readUsersFromFile();
 }
 
 
@@ -223,11 +226,11 @@ void AdminHomeWindowN::on_deleteButton_clicked()
 void AdminHomeWindowN::loadPurchaseHistory()
 {
     purchaseHistoryModel = new QStandardItemModel(this);
-    purchaseHistoryModel->setHorizontalHeaderLabels(QStringList() << "Артикул" << "Количество" << "Дата" << "ФИО покупателя");
+    purchaseHistoryModel->setHorizontalHeaderLabels(QStringList() << "Название" << "Количество" << "Дата" << "ФИО покупателя");
 
     QStringList purchaseData;
     try {
-        purchaseData = db.loadPurchasesFromDatabase("Purchases.csv");
+        purchaseData = db.loadPurchasesFromDatabase();
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();
@@ -235,7 +238,15 @@ void AdminHomeWindowN::loadPurchaseHistory()
 
     QStringList userData;
     try {
-        userData = db.loadUsersFromDataBase("Users.csv");
+        userData = db.loadUsersFromDataBase();
+    } catch (DbCritical &e) {
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
+    QStringList suppliesData;
+    try {
+        suppliesData = db.loadSuppliesFromDataBase();
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();
@@ -258,8 +269,17 @@ void AdminHomeWindowN::loadPurchaseHistory()
                 }
             }
 
+            QString supplyName;
+            for (const QString& supplyLine : suppliesData) {
+                QStringList supplyDetails = supplyLine.split(",");
+                if (supplyLine.size() >= 5 && vendorCode == supplyDetails[2]) {
+                    supplyName = supplyDetails[0];
+                    break;
+                }
+            }
+
             QList<QStandardItem*> rowItems;
-            rowItems << new QStandardItem(vendorCode)
+            rowItems << new QStandardItem(supplyName)
                      << new QStandardItem(quantity)
                      << new QStandardItem(date)
                      << new QStandardItem(fullCustomerName);
@@ -276,7 +296,7 @@ void AdminHomeWindowN::loadPriceChangeHistory()
     QStringList priceChangeData;
     try
     {
-        priceChangeData = db.loadPriceChangeHistory("PriceChangeHistory.csv");
+        priceChangeData = db.loadPriceChangeHistory();
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
         QCoreApplication::quit();

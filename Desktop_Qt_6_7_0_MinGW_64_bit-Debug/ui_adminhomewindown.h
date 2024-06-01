@@ -41,6 +41,7 @@ public:
     QLineEdit *password;
     QLineEdit *login;
     QLineEdit *company;
+    QLineEdit *email;
     QWidget *tab_2;
     QVBoxLayout *verticalLayout;
     QTableView *tableView;
@@ -101,6 +102,9 @@ public:
         company = new QLineEdit(tab);
         company->setObjectName("company");
         company->setGeometry(QRect(260, 120, 121, 31));
+        email = new QLineEdit(tab);
+        email->setObjectName("email");
+        email->setGeometry(QRect(80, 280, 121, 31));
         tabWidget->addTab(tab, QString());
         surname->raise();
         name->raise();
@@ -112,6 +116,7 @@ public:
         password->raise();
         company->raise();
         login->raise();
+        email->raise();
         tab_2 = new QWidget();
         tab_2->setObjectName("tab_2");
         verticalLayout = new QVBoxLayout(tab_2);
@@ -147,7 +152,7 @@ public:
         AdminHomeWindowN->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminHomeWindowN);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         AdminHomeWindowN->setMenuBar(menubar);
         statusbar = new QStatusBar(AdminHomeWindowN);
         statusbar->setObjectName("statusbar");
@@ -193,6 +198,7 @@ public:
         password->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\237\320\260\321\200\320\276\320\273\321\214", nullptr));
         login->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\233\320\276\320\263\320\270\320\275", nullptr));
         company->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265 \320\272\320\276\320\274\320\277\320\260\320\275\320\270\320\270", nullptr));
+        email->setPlaceholderText(QCoreApplication::translate("AdminHomeWindowN", "\320\220\320\264\321\200\320\265\321\201 \321\215\320\273. \320\277\320\276\321\207\321\202\321\213", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("AdminHomeWindowN", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", nullptr));
         deleteButton->setText(QCoreApplication::translate("AdminHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("AdminHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", nullptr));

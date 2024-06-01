@@ -23,12 +23,12 @@ class DataBase : public QObject
 public:
     explicit DataBase(QObject *parent = nullptr);
     int checkUsersDB(const QString& surname, const QString& password);
-    bool addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password);
-    bool addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role);
+    bool addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& email);
+    bool addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role, const QString& email);
     int getRoles();
     bool addSupplying(QString name, QString count, QString vendorCode, QString price, QString vendor);
-    QStringList loadUsersFromDataBase(QString filename);
-    QStringList loadSuppliesFromDataBase(QString filename);
+    QStringList loadUsersFromDataBase();
+    QStringList loadSuppliesFromDataBase();
     QStringList getSuppliesForVendor(const QString& vendor);
     QStringList getSupplyDataForVendor(const QString& vendor, const QString& supplyName, const QString& vendorCode);
     bool updateSupply(const QString& vendor, const QString& oldVendorCode, const QString& newName, const QString& newCount, const QString& newVendorCode, const QString& newPrice);
@@ -37,12 +37,17 @@ public:
     void deleteUserFromFile(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& phone, const QString& login, const QString& password, const QString& role);
     bool isVendorCodeExists(const QString& vendorCode);
     void savePurchaseToDatabase(const QString &filename, const QString &vendorCode, const QString &date, const QString &customerName, const QString &quantity);
-    QStringList loadPurchasesFromDatabase(const QString& filename);
+    QStringList loadPurchasesFromDatabase();
     bool updateSupplyQuantity(const QString& vendorCode, int newQuantity);
-    QStringList loadPriceChangeHistory(const QString& filename);
+    QStringList loadPriceChangeHistory();
     bool checkSameLogins(const QString& login);
     bool addSupplierCompany(const QString& surname, const QString& name, const QString& patronymic, const QString& companyName, const QString& address, const QString& telephoneNumber, const QString& login);
     QStringList loadSuppliersCompaniesFromFile(const QString& filename);
+    QStringList loadCardDataFromDatabase();
+    void saveCardDataToDatabase(const QString& cardNumber, const QString& expiryDate, const QString& buyerLogin);
+    bool isCardDataExists(const QString& buyerLogin);
+    QString encryptCardData(QString cardNumber, QString key);
+    QString decryptCardData(QString encryptedCardNumber, QString key);
 };
 
 #endif // DATABASE_H

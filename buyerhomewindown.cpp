@@ -44,6 +44,8 @@ BuyerHomeWindowN::BuyerHomeWindowN(QWidget *parent)
 
     ui->payButton->setEnabled(false);
 
+    ui->cvcCvv->setEchoMode(QLineEdit::Password);
+
     updateTotalPrice();
     loadSupplies();
 
@@ -90,7 +92,7 @@ void BuyerHomeWindowN::loadSupplies()
     QStringList suppliersCompaniesData;
     try
     {
-        suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliesData = db.loadSuppliesFromDataBase();
         suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     }
     catch (DbCritical &e)
@@ -139,7 +141,7 @@ void BuyerHomeWindowN::on_pushButton_clicked()
     QStringList suppliesData;
     QStringList suppliersCompaniesData;
     try {
-        suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+        suppliesData = db.loadSuppliesFromDataBase();
         suppliersCompaniesData = db.loadSuppliersCompaniesFromFile("SuppliersCompanies.csv");
     } catch (DbCritical &e) {
         QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
@@ -226,7 +228,7 @@ void BuyerHomeWindowN::onItemDoubleClicked(QListWidgetItem *item)
         int vendorCode = item->data(Qt::UserRole).toInt();
         QStringList suppliesData;
         try {
-            suppliesData = db.loadSuppliesFromDataBase("Supplies.csv");
+            suppliesData = db.loadSuppliesFromDataBase();
         } catch (DbCritical &e) {
             QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
             QCoreApplication::quit();
@@ -310,6 +312,61 @@ void BuyerHomeWindowN::updateTotalPrice()
 void BuyerHomeWindowN::on_payButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+
+    QString customerName = ui->nameLabel->text();
+
+    bool isCardDataExists = false;
+    try {
+        isCardDataExists = db.isCardDataExists(customerName);
+    }
+    catch (DbCritical& e) {
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
+
+    if (isCardDataExists == true) {
+        QStringList cardData;
+        try {
+            cardData = db.loadCardDataFromDatabase();
+        }
+        catch (DbCritical &e) {
+            QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+            QCoreApplication::quit();
+        }
+
+        QString cardNumberFromData;
+        QString expiryDateFromData;
+        for (const QString& line : cardData) {
+            QStringList cardDetails = line.split(",");
+            if (cardDetails.size() >= 3) {
+                cardNumberFromData = cardDetails[0];
+                expiryDateFromData = cardDetails[1];
+            }
+        }
+
+        ui->cardNumber->setText(cardNumberFromData);
+        ui->monthYear->setText(expiryDateFromData);
+    }
+
+    QStringList usersData;
+    try {
+        usersData = db.loadUsersFromDataBase();
+    }
+    catch (DbCritical& e) {
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
+    QString buyerEmailFromData;
+    for (const QString& line : usersData) {
+        QStringList usersDetails = line.split(",");
+        if (usersDetails.size() >= 9 && customerName == usersDetails[5]) {
+            buyerEmailFromData = usersDetails[8];
+        }
+    }
+
+    ui->email->setText(buyerEmailFromData);
 }
 
 
@@ -359,6 +416,17 @@ void BuyerHomeWindowN::showSuccessDialog()
         return;
     }
 
+    QString customerName = ui->nameLabel->text();
+
+    bool isCardDataExists = false;
+    try {
+        isCardDataExists = db.isCardDataExists(customerName);
+    }
+    catch (DbCritical& e) {
+        QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+        QCoreApplication::quit();
+    }
+
     QMessageBox::StandardButton reply = QMessageBox::question(this, "Подтверждение покупки",
                                                               "Вы уверены, что хотите совершить покупку?",
                                                               QMessageBox::Yes | QMessageBox::No);
@@ -382,7 +450,15 @@ void BuyerHomeWindowN::showSuccessDialog()
         QDate currentDate = QDate::currentDate();
         QString dateString = currentDate.toString("dd.MM.yyyy");
 
-        QString customerName = ui->nameLabel->text();
+        if (isCardDataExists == false) {
+            try {
+                db.saveCardDataToDatabase(cardNumber, expiryDate, customerName);;
+            }
+            catch (DbCritical& e) {
+                QMessageBox::critical(this, QString("Ошибка"), QString("База данных не открыта!\nОбратитесь к администратору!"));
+                QCoreApplication::quit();
+            }
+        }
 
         for (const QString &purchaseItem : purchaseData) {
             QStringList parts = purchaseItem.split(",");
