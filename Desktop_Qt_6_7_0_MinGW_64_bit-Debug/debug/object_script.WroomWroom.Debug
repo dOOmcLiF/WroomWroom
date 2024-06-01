@@ -3,6 +3,7 @@ debug/buyerhomewindown.o
 debug/database.o
 debug/entrywindow.o
 debug/main.o
+debug/pricechangehistoryunit.o
 debug/regwindown.o
 debug/supplierhomewindown.o
 debug/qrc_backlogo.o

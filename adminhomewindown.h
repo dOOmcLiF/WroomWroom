@@ -16,7 +16,7 @@ class AdminHomeWindowN : public QMainWindow
 
 public:
     explicit AdminHomeWindowN(QWidget *parent = nullptr);
-    void readUsersFromFile(const QString& filename);
+    void readUsersFromFile();
     ~AdminHomeWindowN();
 
 private slots:

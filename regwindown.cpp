@@ -22,7 +22,10 @@ RegWindowN::RegWindowN(QWidget *parent)
     addressValidator = new QRegularExpressionValidator(QRegularExpression("^[а-яА-Я0-9,.\\s]+$"), this);
     loginValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9]+$"), this);
     passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]\\{};:\"\\\\|.<>\\/?]+$"), this);
+    QRegularExpression eMailRegex("\\b[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b");
+    QRegularExpressionValidator *eMailValidator = new QRegularExpressionValidator(eMailRegex, this);
 
+    ui->email->setValidator(eMailValidator);
     ui->surname->setValidator(nameValidator);
     ui->name->setValidator(nameValidator);
     ui->patronymic->setValidator(patronymicValidator);
@@ -52,12 +55,12 @@ void RegWindowN::on_pushButton_clicked()
     const auto login = ui->login->text();
     const auto password = ui->repeatPassword->text();
     const auto repeatPassword = ui->password->text();
-
+    const auto email = ui->email->text();
 
     bool RegSuccess = false;
     bool SameLogins = false;
 
-    if(surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty() || login.isEmpty())
+    if(surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || address.isEmpty() || telephoneNumber.isEmpty() || login.isEmpty() || email.isEmpty())
     {
         QMessageBox::warning(this,"Ошибка","Поля не могут быть пустыми!");
         return;
@@ -87,7 +90,7 @@ void RegWindowN::on_pushButton_clicked()
 
     try
     {
-        RegSuccess = db.addUser(surname, name, patronymic, address, telephoneNumber, login, password);
+        RegSuccess = db.addUser(surname, name, patronymic, address, telephoneNumber, login, password, email);
     }
     catch(DbCritical &e)
     {

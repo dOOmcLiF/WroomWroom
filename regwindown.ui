@@ -82,7 +82,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>440</y>
+      <y>480</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -95,7 +95,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>340</y>
+      <y>380</y>
       <width>201</width>
       <height>31</height>
      </rect>
@@ -139,7 +139,7 @@ image: url(:/new/backlogo/5700554.png);</string>
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>380</y>
+      <y>420</y>
       <width>201</width>
       <height>31</height>
      </rect>
@@ -152,13 +152,26 @@ image: url(:/new/backlogo/5700554.png);</string>
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>300</y>
+      <y>340</y>
       <width>201</width>
       <height>31</height>
      </rect>
     </property>
     <property name="placeholderText">
      <string>Логин</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="email">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>290</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Адрес электронной почты</string>
     </property>
    </widget>
   </widget>
@@ -168,7 +181,7 @@ image: url(:/new/backlogo/5700554.png);</string>
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
@@ -180,6 +193,7 @@ image: url(:/new/backlogo/5700554.png);</string>
   <tabstop>patronymic</tabstop>
   <tabstop>address</tabstop>
   <tabstop>phoneNumber</tabstop>
+  <tabstop>email</tabstop>
   <tabstop>login</tabstop>
   <tabstop>repeatPassword</tabstop>
   <tabstop>password</tabstop>
