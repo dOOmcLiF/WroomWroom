@@ -91,9 +91,8 @@ public:
         comboBox->setGeometry(QRect(260, 80, 121, 31));
         regUser = new QPushButton(tab);
         regUser->setObjectName("regUser");
-        regUser->setGeometry(QRect(590, 340, 111, 31));
-        regUser->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0,0,0);"));
+        regUser->setGeometry(QRect(650, 380, 111, 31));
+        regUser->setStyleSheet(QString::fromUtf8(""));
         password = new QLineEdit(tab);
         password->setObjectName("password");
         password->setGeometry(QRect(260, 160, 121, 31));
@@ -148,8 +147,7 @@ public:
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName("exitButton");
         exitButton->setGeometry(QRect(721, 540, 71, 24));
-        exitButton->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        exitButton->setStyleSheet(QString::fromUtf8(""));
         AdminHomeWindowN->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminHomeWindowN);
         menubar->setObjectName("menubar");
