@@ -47,14 +47,14 @@
    <widget class="QPushButton" name="exitButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>533</y>
+      <x>710</x>
+      <y>530</y>
       <width>80</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Выход</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">

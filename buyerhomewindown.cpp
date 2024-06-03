@@ -482,3 +482,24 @@ void BuyerHomeWindowN::showSuccessDialog()
     }
     updateTotalPrice();
 }
+
+void BuyerHomeWindowN::on_clearCart_clicked()
+{
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "Очистить корзину",
+                                                              "Вы действительно хотите очистить корзину?",
+                                                              QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        // Очистить список товаров в корзине
+        ui->listWidget->clear();
+
+        // Обновить общую стоимость (должна стать равной 0)
+        updateTotalPrice();
+
+        // Отключить кнопку оплаты, если корзина пуста
+        if (ui->listWidget->count() == 0) {
+            ui->payButton->setEnabled(false);
+        }
+    }
+}
+

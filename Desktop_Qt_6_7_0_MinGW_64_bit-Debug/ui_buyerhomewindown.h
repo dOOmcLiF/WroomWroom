@@ -42,6 +42,7 @@ public:
     QListWidget *listWidget;
     QLabel *totalPrice;
     QLabel *label_2;
+    QPushButton *clearCart;
     QWidget *page_2;
     QPushButton *backButton;
     QLabel *label_3;
@@ -109,6 +110,9 @@ public:
         label_2->setObjectName("label_2");
         label_2->setGeometry(QRect(440, 350, 101, 51));
         label_2->setFont(font1);
+        clearCart = new QPushButton(page);
+        clearCart->setObjectName("clearCart");
+        clearCart->setGeometry(QRect(80, 360, 111, 24));
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName("page_2");
@@ -174,7 +178,7 @@ public:
 
         retranslateUi(BuyerHomeWindowN);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         stackedWidget->setCurrentIndex(0);
 
 
@@ -184,12 +188,13 @@ public:
     void retranslateUi(QMainWindow *BuyerHomeWindowN)
     {
         BuyerHomeWindowN->setWindowTitle(QCoreApplication::translate("BuyerHomeWindowN", "MainWindow", nullptr));
-        exitButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "Exit", nullptr));
+        exitButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\222\321\213\321\205\320\276\320\264", nullptr));
         pushButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\232\321\203\320\277\320\270\321\202\321\214", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_9), QCoreApplication::translate("BuyerHomeWindowN", "\320\241\320\277\320\270\321\201\320\276\320\272 \321\202\320\276\320\262\320\260\321\200\320\276\320\262", nullptr));
         payButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", nullptr));
         totalPrice->setText(QString());
         label_2->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\230\321\202\320\276\320\263\320\276:", nullptr));
+        clearCart->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\272\320\276\321\200\320\267\320\270\320\275\321\203", nullptr));
         backButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\235\320\260\320\267\320\260\320\264", nullptr));
         label_3->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \320\264\320\260\320\275\320\275\321\213\320\265 \320\264\320\273\321\217 \320\276\320\277\320\273\320\260\321\202\321\213:", nullptr));
         cardNumber->setPlaceholderText(QCoreApplication::translate("BuyerHomeWindowN", "16 \321\206\320\270\321\204\321\200", nullptr));

@@ -74,7 +74,7 @@ public:
         vendorLabel->setFont(font);
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName("exitButton");
-        exitButton->setGeometry(QRect(10, 533, 80, 24));
+        exitButton->setGeometry(QRect(710, 530, 80, 24));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName("tabWidget");
         tabWidget->setGeometry(QRect(10, 70, 781, 451));
@@ -209,7 +209,7 @@ public:
     {
         SupplierHomeWindowN->setWindowTitle(QCoreApplication::translate("SupplierHomeWindowN", "MainWindow", nullptr));
         vendorLabel->setText(QCoreApplication::translate("SupplierHomeWindowN", "TextLabel", nullptr));
-        exitButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "Exit", nullptr));
+        exitButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "\320\222\321\213\321\205\320\276\320\264", nullptr));
         name->setText(QString());
         name->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", nullptr));
         vendorCode->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\220\321\200\321\202\320\270\320\272\321\203\320\273", nullptr));

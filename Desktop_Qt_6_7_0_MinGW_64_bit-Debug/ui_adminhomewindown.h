@@ -92,7 +92,8 @@ public:
         regUser = new QPushButton(tab);
         regUser->setObjectName("regUser");
         regUser->setGeometry(QRect(590, 340, 111, 31));
-        regUser->setStyleSheet(QString::fromUtf8("background-color: rgb(85, 255, 0);"));
+        regUser->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+"color: rgb(0,0,0);"));
         password = new QLineEdit(tab);
         password->setObjectName("password");
         password->setGeometry(QRect(260, 160, 121, 31));
@@ -146,13 +147,13 @@ public:
         tabWidget->addTab(tab_4, QString());
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName("exitButton");
-        exitButton->setGeometry(QRect(10, 540, 782, 24));
+        exitButton->setGeometry(QRect(721, 540, 71, 24));
         exitButton->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 0, 0);"));
+"background-color: rgb(255, 255, 255);"));
         AdminHomeWindowN->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminHomeWindowN);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         AdminHomeWindowN->setMenuBar(menubar);
         statusbar = new QStatusBar(AdminHomeWindowN);
         statusbar->setObjectName("statusbar");

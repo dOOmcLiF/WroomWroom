@@ -41,7 +41,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Выход</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
@@ -163,6 +163,19 @@
         </property>
         <property name="text">
          <string>Итого:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="clearCart">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>360</y>
+          <width>111</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Очистить корзину</string>
         </property>
        </widget>
       </widget>

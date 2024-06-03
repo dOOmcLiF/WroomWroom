@@ -36,6 +36,8 @@ private slots:
 
     void showSuccessDialog();
 
+    void on_clearCart_clicked();
+
 private:
     Ui::BuyerHomeWindowN *ui;
     QStandardItemModel* cartModel;
