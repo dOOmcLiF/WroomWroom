@@ -38,6 +38,8 @@ private slots:
 
     void on_clearCart_clicked();
 
+    void on_deleteProductFromCart_clicked();
+
 private:
     Ui::BuyerHomeWindowN *ui;
     QStandardItemModel* cartModel;

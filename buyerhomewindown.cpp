@@ -490,16 +490,39 @@ void BuyerHomeWindowN::on_clearCart_clicked()
                                                               QMessageBox::Yes | QMessageBox::No);
 
     if (reply == QMessageBox::Yes) {
-        // Очистить список товаров в корзине
         ui->listWidget->clear();
 
-        // Обновить общую стоимость (должна стать равной 0)
         updateTotalPrice();
 
-        // Отключить кнопку оплаты, если корзина пуста
         if (ui->listWidget->count() == 0) {
             ui->payButton->setEnabled(false);
         }
+    }
+}
+
+
+void BuyerHomeWindowN::on_deleteProductFromCart_clicked()
+{
+    QListWidgetItem *selectedItem = ui->listWidget->currentItem();
+
+    if (selectedItem) {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Удалить товар",
+                                                                  "Вы действительно хотите удалить этот товар из корзины?",
+                                                                  QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+            int row = ui->listWidget->row(selectedItem);
+            ui->listWidget->takeItem(row);
+            delete selectedItem;
+
+            updateTotalPrice();
+
+            if (ui->listWidget->count() == 0) {
+                ui->payButton->setEnabled(false);
+            }
+        }
+    } else {
+        QMessageBox::warning(this, "Ошибка", "Выберите товар для удаления из корзины!");
     }
 }
 

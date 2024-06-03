@@ -43,6 +43,7 @@ public:
     QLabel *totalPrice;
     QLabel *label_2;
     QPushButton *clearCart;
+    QPushButton *deleteProductFromCart;
     QWidget *page_2;
     QPushButton *backButton;
     QLabel *label_3;
@@ -112,7 +113,10 @@ public:
         label_2->setFont(font1);
         clearCart = new QPushButton(page);
         clearCart->setObjectName("clearCart");
-        clearCart->setGeometry(QRect(80, 360, 111, 24));
+        clearCart->setGeometry(QRect(80, 390, 111, 24));
+        deleteProductFromCart = new QPushButton(page);
+        deleteProductFromCart->setObjectName("deleteProductFromCart");
+        deleteProductFromCart->setGeometry(QRect(80, 360, 111, 24));
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName("page_2");
@@ -178,7 +182,7 @@ public:
 
         retranslateUi(BuyerHomeWindowN);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         stackedWidget->setCurrentIndex(0);
 
 
@@ -195,6 +199,7 @@ public:
         totalPrice->setText(QString());
         label_2->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\230\321\202\320\276\320\263\320\276:", nullptr));
         clearCart->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\272\320\276\321\200\320\267\320\270\320\275\321\203", nullptr));
+        deleteProductFromCart->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
         backButton->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\235\320\260\320\267\320\260\320\264", nullptr));
         label_3->setText(QCoreApplication::translate("BuyerHomeWindowN", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \320\264\320\260\320\275\320\275\321\213\320\265 \320\264\320\273\321\217 \320\276\320\277\320\273\320\260\321\202\321\213:", nullptr));
         cardNumber->setPlaceholderText(QCoreApplication::translate("BuyerHomeWindowN", "16 \321\206\320\270\321\204\321\200", nullptr));

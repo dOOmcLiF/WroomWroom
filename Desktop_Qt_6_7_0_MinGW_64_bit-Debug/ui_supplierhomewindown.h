@@ -94,7 +94,7 @@ public:
         price->setGeometry(QRect(130, 220, 131, 28));
         addButton = new QPushButton(tab);
         addButton->setObjectName("addButton");
-        addButton->setGeometry(QRect(650, 340, 83, 29));
+        addButton->setGeometry(QRect(632, 340, 101, 29));
         quantity = new QLineEdit(tab);
         quantity->setObjectName("quantity");
         quantity->setGeometry(QRect(130, 140, 131, 28));
@@ -118,7 +118,7 @@ public:
         oldPrice->setGeometry(QRect(130, 260, 131, 28));
         changeButton = new QPushButton(tab_2);
         changeButton->setObjectName("changeButton");
-        changeButton->setGeometry(QRect(580, 320, 83, 29));
+        changeButton->setGeometry(QRect(632, 340, 101, 29));
         newName = new QLineEdit(tab_2);
         newName->setObjectName("newName");
         newName->setEnabled(true);
@@ -148,7 +148,7 @@ public:
         comboBox_2->setGeometry(QRect(130, 80, 131, 41));
         deleteButton = new QPushButton(tab_5);
         deleteButton->setObjectName("deleteButton");
-        deleteButton->setGeometry(QRect(620, 340, 83, 29));
+        deleteButton->setGeometry(QRect(632, 340, 101, 29));
         name_2 = new QLineEdit(tab_5);
         name_2->setObjectName("name_2");
         name_2->setEnabled(false);
@@ -214,7 +214,7 @@ public:
         name->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", nullptr));
         vendorCode->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\220\321\200\321\202\320\270\320\272\321\203\320\273", nullptr));
         price->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\246\320\265\320\275\320\260", nullptr));
-        addButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "Add", nullptr));
+        addButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
         quantity->setText(QString());
         quantity->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("SupplierHomeWindowN", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
@@ -222,7 +222,7 @@ public:
         oldName->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", nullptr));
         oldVendorCode->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\220\321\200\321\202\320\270\320\272\321\203\320\273", nullptr));
         oldPrice->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\246\320\265\320\275\320\260", nullptr));
-        changeButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "Change", nullptr));
+        changeButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
         newName->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\276\320\262\320\276\320\265 \320\275\320\260\320\267\320\262\320\260\320\275\320\270\320\265", nullptr));
         newVendorCode->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\276\320\262\321\213\320\271 \320\260\321\200\321\202\320\270\320\272\321\203\320\273", nullptr));
         newPrice->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\276\320\262\320\260\321\217 \321\206\320\265\320\275\320\260", nullptr));
@@ -230,7 +230,7 @@ public:
         newQuantity->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\276\320\262\320\276\320\265 \320\272\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("SupplierHomeWindowN", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
         comboBox_2->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 \321\202\320\276\320\262\320\260\321\200", nullptr));
-        deleteButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "Delete", nullptr));
+        deleteButton->setText(QCoreApplication::translate("SupplierHomeWindowN", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \321\202\320\276\320\262\320\260\321\200", nullptr));
         name_2->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", nullptr));
         vendorCode_2->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\220\321\200\321\202\320\270\320\272\321\203\320\273", nullptr));
         price_2->setPlaceholderText(QCoreApplication::translate("SupplierHomeWindowN", "\320\246\320\265\320\275\320\260", nullptr));

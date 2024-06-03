@@ -123,14 +123,14 @@
      <widget class="QPushButton" name="addButton">
       <property name="geometry">
        <rect>
-        <x>650</x>
+        <x>632</x>
         <y>340</y>
-        <width>83</width>
+        <width>101</width>
         <height>29</height>
        </rect>
       </property>
       <property name="text">
-       <string>Add</string>
+       <string>Добавить товар</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="quantity">
@@ -218,14 +218,14 @@
      <widget class="QPushButton" name="changeButton">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>320</y>
-        <width>83</width>
+        <x>632</x>
+        <y>340</y>
+        <width>101</width>
         <height>29</height>
        </rect>
       </property>
       <property name="text">
-       <string>Change</string>
+       <string>Изменить товар</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="newName">
@@ -332,14 +332,14 @@
      <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>632</x>
         <y>340</y>
-        <width>83</width>
+        <width>101</width>
         <height>29</height>
        </rect>
       </property>
       <property name="text">
-       <string>Delete</string>
+       <string>Удалить товар</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="name_2">
