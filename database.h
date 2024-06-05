@@ -22,6 +22,7 @@ class DataBase : public QObject
        Q_OBJECT
 public:
     explicit DataBase(QObject *parent = nullptr);
+    void checkAndCreateFilesIfNeeded();
     int checkUsersDB(const QString& surname, const QString& password);
     bool addUser(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& email);
     bool addUserByAdmin(const QString& surname, const QString& name, const QString& patronymic, const QString& address, const QString& telephoneNumber, const QString& login, const QString& password, const QString& role, const QString& email);

@@ -13,7 +13,30 @@
 DataBase::DataBase(QObject *parent)
     : QObject{parent}
 {
+    checkAndCreateFilesIfNeeded();
+}
 
+void DataBase::checkAndCreateFilesIfNeeded()
+{
+    QStringList requiredFiles = {
+        "Cards.csv",
+        "PriceChangeHistory.csv",
+        "Purchases.csv",
+        "SuppliersCompanies.csv",
+        "Supplies.csv",
+        "Users.csv"
+    };
+
+    for (const QString& fileName : requiredFiles) {
+        QFile file(fileName);
+        if (!file.exists()) {
+            if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                throw DbCritical();
+            }
+            file.close();
+            qDebug() << "Created file:" << fileName;
+        }
+    }
 }
 
 int DataBase::checkUsersDB(const QString& login, const QString& password)
