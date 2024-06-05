@@ -33,6 +33,10 @@ void DataBase::checkAndCreateFilesIfNeeded()
             if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
                 throw DbCritical();
             }
+            if (fileName == "Users.csv") {
+                QTextStream out(&file);
+                out << "Admin,Admin,Admin,Admin,Admin,admin,admin,Admin,admin@example.com\n";
+            }
             file.close();
             qDebug() << "Created file:" << fileName;
         }
