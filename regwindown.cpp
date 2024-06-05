@@ -33,6 +33,9 @@ RegWindowN::RegWindowN(QWidget *parent)
     ui->login->setValidator(loginValidator);
     ui->password->setValidator(passwordValidator);
     ui->repeatPassword->setValidator(passwordValidator);
+
+    ui->password->setEchoMode(QLineEdit::Password);
+    ui->repeatPassword->setEchoMode(QLineEdit::Password);
 }
 
 RegWindowN::~RegWindowN()

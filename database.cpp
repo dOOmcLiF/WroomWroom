@@ -35,7 +35,7 @@ void DataBase::checkAndCreateFilesIfNeeded()
             }
             if (fileName == "Users.csv") {
                 QTextStream out(&file);
-                out << "Admin,Admin,Admin,Admin,Admin,admin,admin,Admin,admin@example.com\n";
+                out << "Admin,Admin,Admin,Admin,+7-111-111-11-11,admin,admin,Admin,admin@example.com\n";
             }
             file.close();
             qDebug() << "Created file:" << fileName;
